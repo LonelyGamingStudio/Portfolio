@@ -6,7 +6,7 @@ import '../styles/global.css';
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <title>Portfolio z AOS</title>
+    <title>Portfolio Michał Pawlak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
@@ -20,36 +20,51 @@ import '../styles/global.css';
 
     <!-- 🏁 GŁÓWNY NAGŁÓWEK -->
     <header class="min-h-[100vh] flex flex-col items-center justify-center text-center px-6">
-      <h1 data-aos="fade-down" data-aos-duration="1000" class="text-5xl text-red-400 mb-4">
+      <h1 data-aos="fade-down" data-aos-duration="1000" class="text-6xl sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 font-bold mb-6 drop-shadow-lg">
         🎬 Moje Portfolio
       </h1>
-      <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-lime-300">
-        Cześć! To przykładowy tekst z animacją AOS. Jeśli go widzisz – działa!
+      <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-lime-300 mb-8">
+        Cześć! To moje miejsce w sieci. Zobacz, co potrafię!
       </p>
+      <a href="#projekty" data-aos="zoom-in" data-aos-delay="400" class="inline-block px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg hover:scale-105 hover:shadow-xl transition transform duration-300 ease-in-out">
+        🔎 Zobacz projekty
+      </a>
     </header>
 
-    <!-- 🧑‍💻 O MNIE -->
+    <!-- 👨‍💻 O MNIE -->
     <section data-aos="fade-right" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6">
       <h2 class="text-3xl text-blue-400 mb-4">👋 O mnie</h2>
       <p>
-        Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS.
+        Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS. Tworzę strony, uczę się Reacta, a moim celem jest zostać full-stack developerem.
       </p>
     </section>
 
     <!-- 🧰 PROJEKTY -->
-    <section data-aos="fade-left" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6">
-      <h2 class="text-3xl text-purple-400 mb-4">🧰 Projekty</h2>
-      <ul class="space-y-4">
-        <li class="bg-lime-800 text-black p-4 rounded shadow">
-          Portfolio z AOS i Astro
-        </li>
-        <li class="bg-lime-800 text-black p-4 rounded shadow">
-          Aplikacja TODO w Tailwind
-        </li>
-        <li class="bg-lime-800 text-black p-4 rounded shadow">
-          Animacje przewijania i galerie
-        </li>
-      </ul>
+    <section id="projekty" data-aos="fade-left" data-aos-duration="1000" class="py-20 max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl sm:text-4xl text-purple-400 mb-10 text-center font-semibold">🧰 Projekty</h2>
+      <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
+        <div class="bg-gray-800 text-white rounded-xl p-6 shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300">
+          <h3 class="text-lg font-semibold mb-2">Portfolio z AOS i Astro</h3>
+          <p class="text-sm text-gray-300">Interaktywne portfolio z animacjami i Tailwindem.</p>
+        </div>
+        <div class="bg-gray-800 text-white rounded-xl p-6 shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300">
+          <h3 class="text-lg font-semibold mb-2">Aplikacja TODO</h3>
+          <p class="text-sm text-gray-300">Prosty task manager z filtrowaniem i UI.</p>
+        </div>
+        <div class="bg-gray-800 text-white rounded-xl p-6 shadow-lg transform hover:scale-105 hover:shadow-xl transition duration-300">
+          <h3 class="text-lg font-semibold mb-2">Animacje i Galerie</h3>
+          <p class="text-sm text-gray-300">Galerie zdjęć i efekty przewijania z AOS.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 💌 CTA WSPÓŁPRACA -->
+    <section data-aos="fade-up" class="py-20 text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">🚀 Gotowy na współpracę?</h2>
+      <p class="text-gray-400 mb-6">Napisz do mnie i stwórzmy coś razem!</p>
+      <a href="mailto:kontakt@example.com" class="inline-block px-8 py-4 text-lg rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition transform duration-300">
+        💌 Napisz do mnie
+      </a>
     </section>
 
     <!-- 📞 KONTAKT -->
@@ -60,7 +75,7 @@ import '../styles/global.css';
 
     <!-- 🔚 STOPKA -->
     <footer class="text-center py-6 text-sm text-gray-500">
-      © 2025 Moje Portfolio. Wszystkie prawa zastrzeżone.
+      © 2025 Michał Pawlak. Wszystkie prawa zastrzeżone.
     </footer>
 
     <!-- 🎯 TEST DŁUGOŚCI -->
