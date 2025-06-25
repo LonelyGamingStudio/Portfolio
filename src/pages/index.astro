@@ -1,0 +1,80 @@
+---
+import 'aos/dist/aos.css';
+import '../styles/global.css';
+---
+
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Portfolio z AOS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body class="relative bg-black text-lime-400 font-mono overflow-x-hidden">
+
+    <!-- 🎥 WIDEO TŁO -->
+    <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover -z-10 opacity-30">
+      <source src="/video/demo.mp4" type="video/mp4" />
+      Twoja przeglądarka nie obsługuje filmów HTML5.
+    </video>
+
+    <!-- 🏁 GŁÓWNY NAGŁÓWEK -->
+    <header class="min-h-[100vh] flex flex-col items-center justify-center text-center px-6">
+      <h1 data-aos="fade-down" data-aos-duration="1000" class="text-5xl text-red-400 mb-4">
+        🎬 Moje Portfolio
+      </h1>
+      <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-lime-300">
+        Cześć! To przykładowy tekst z animacją AOS. Jeśli go widzisz – działa!
+      </p>
+    </header>
+
+    <!-- 🧑‍💻 O MNIE -->
+    <section data-aos="fade-right" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl text-blue-400 mb-4">👋 O mnie</h2>
+      <p>
+        Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS.
+      </p>
+    </section>
+
+    <!-- 🧰 PROJEKTY -->
+    <section data-aos="fade-left" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl text-purple-400 mb-4">🧰 Projekty</h2>
+      <ul class="space-y-4">
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Portfolio z AOS i Astro
+        </li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Aplikacja TODO w Tailwind
+        </li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Animacje przewijania i galerie
+        </li>
+      </ul>
+    </section>
+
+    <!-- 📞 KONTAKT -->
+    <section data-aos="zoom-in-up" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl text-pink-400 mb-4">📞 Kontakt</h2>
+      <p>Napisz do mnie na: <a href="mailto:kontakt@example.com" class="underline text-lime-300">kontakt@example.com</a></p>
+    </section>
+
+    <!-- 🔚 STOPKA -->
+    <footer class="text-center py-6 text-sm text-gray-500">
+      © 2025 Moje Portfolio. Wszystkie prawa zastrzeżone.
+    </footer>
+
+    <!-- 🎯 TEST DŁUGOŚCI -->
+    <div data-aos="fade-up" class="h-[150vh] flex items-center justify-center">
+      <div class="bg-white text-black px-6 py-4 rounded shadow-xl text-3xl">
+        🎉 Test przewijania i AOS!
+      </div>
+    </div>
+
+    <!-- 🧠 SKRYPT AOS -->
+    <script type="module">
+      import AOS from 'https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm';
+      AOS.init({ once: false });
+    </script>
+
+  </body>
+</html>
