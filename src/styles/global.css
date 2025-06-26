@@ -2,27 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-bg: #ffffff;
-  --color-text: #000000;
-  --color-accent: #4f46e5;
-  --color-box: #e2e8f0;
+/* === Motyw (ciemny/jasny) === */
+html {
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-[data-theme="dark"] {
-  --color-bg: #0a0a0a;
-  --color-text: #f1f5f9;
-  --color-accent: #6366f1;
-  --color-box: #1f2937;
+/* === Przyciski === */
+button {
+  @apply focus:outline-none;
 }
 
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  transition: background-color 0.4s, color 0.4s;
+/* === Przycisk przełącznika motywu === */
+#theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1.5rem;
+  width: 5rem;   /* ⬅️ Jeszcze większy przycisk */
+  height: 5rem;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 50;
+
+  /* Brak cieni, ramek, tła */
+  box-shadow: none;
 }
 
-.box {
-  background-color: var(--color-box);
-  transition: background-color 0.4s;
+/* === Tło wideo (nie przeszkadza klikaniu) === */
+video {
+  pointer-events: none;
+}
+
+/* === Responsywność (np. telefony) === */
+@media (max-width: 640px) {
+  #theme-toggle {
+    width: 4.5rem;
+    height: 4.5rem;
+    top: 1rem;
+    right: 1rem;
+  }
 }

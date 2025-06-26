@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const html = document.documentElement;
-  const button = document.getElementById("toggle-theme");
-  const stored = localStorage.getItem("theme");
-  if (stored === "dark") html.dataset.theme = "dark";
+  const toggle = document.getElementById("themeToggle");
+  const body = document.body;
+  const landscape = document.getElementById("landscape");
 
-  button.addEventListener("click", () => {
-    const current = html.dataset.theme;
-    const next = current === "light" ? "dark" : "light";
-    html.dataset.theme = next;
-    localStorage.setItem("theme", next);
+  // Przechowuj w localStorage
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") body.classList.add("dark");
+
+  toggle.addEventListener("click", () => {
+    body.classList.toggle("dark");
+    const isDark = body.classList.contains("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   });
 });

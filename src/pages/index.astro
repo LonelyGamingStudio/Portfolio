@@ -1,73 +1,78 @@
 ---
 import 'aos/dist/aos.css';
 import '../styles/global.css';
+import { setupThemeToggle } from '../scripts/themeToggle.js';
 ---
 
-<html lang="pl" data-theme="light">
+<html lang="pl" class="transition-colors duration-500">
   <head>
     <meta charset="UTF-8" />
-    <title>Portfolio z motywem</title>
+    <title>Portfolio z AOS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
 
-  <body class="font-mono overflow-x-hidden transition-colors duration-500">
+  <body class="relative bg-white dark:bg-black text-black dark:text-lime-400 font-mono overflow-x-hidden">
 
-    <!-- 🎥 WIDEO TŁO -->
-    <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover -z-10 opacity-30">
+    <!-- 🎥 Tło -->
+    <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover -z-10 opacity-20">
       <source src="/video/demo.mp4" type="video/mp4" />
-      Twoja przeglądarka nie obsługuje filmów HTML5.
     </video>
 
-    <!-- 🌓 PRZYCISK MOTYWU -->
-    <div class="fixed top-4 right-4 z-50">
-      <button id="toggle-theme" class="px-4 py-2 rounded bg-[var(--color-box)] text-[var(--color-text)] shadow">
-        🌗 Zmień motyw
-      </button>
-    </div>
+    <!-- ☀️🌙 Przycisk przełącznika -->
+<button
+  id="theme-toggle"
+  class="fixed top-4 right-4 w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 z-50 cursor-pointer bg-transparent rounded-full"
+></button>
 
-    <!-- 🏁 GŁÓWNY NAGŁÓWEK -->
+    <!-- 🌄 Nagłówek -->
     <header class="min-h-[100vh] flex flex-col items-center justify-center text-center px-6">
-      <h1 data-aos="fade-down" data-aos-duration="1000" class="text-5xl mb-4 text-[var(--color-accent)]">
+      <h1 data-aos="fade-down" class="text-5xl text-red-400 mb-4">
         🎬 Moje Portfolio
       </h1>
-      <p data-aos="fade-up" data-aos-delay="200" class="text-xl text-[var(--color-text)]">
+      <p data-aos="fade-up" data-aos-delay="200" class="text-xl">
         Cześć! To przykładowy tekst z animacją AOS.
       </p>
     </header>
 
-    <!-- 🧑‍💻 O MNIE -->
-    <section data-aos="fade-right" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6">
-      <h2 class="text-3xl mb-4 text-[var(--color-accent)]">👋 O mnie</h2>
-      <p>Jestem twórcą frontendu. Lubię Tailwinda, Astro i AOS.</p>
+    <!-- 👤 O mnie -->
+    <section data-aos="fade-right" class="py-20 max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl text-blue-400 mb-4">👋 O mnie</h2>
+      <p>
+        Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS.
+      </p>
     </section>
 
-    <!-- 🧰 PROJEKTY -->
-    <section data-aos="fade-left" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6">
-      <h2 class="text-3xl mb-4 text-[var(--color-accent)]">🧰 Projekty</h2>
+    <!-- 💼 Projekty -->
+    <section data-aos="fade-left" class="py-20 max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl text-purple-400 mb-4">🧰 Projekty</h2>
       <ul class="space-y-4">
-        <li class="box p-4 rounded shadow text-black dark:text-white">Portfolio z AOS i Astro</li>
-        <li class="box p-4 rounded shadow text-black dark:text-white">Aplikacja TODO w Tailwind</li>
-        <li class="box p-4 rounded shadow text-black dark:text-white">Animacje przewijania i galerie</li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Portfolio z AOS i Astro
+        </li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Aplikacja TODO w Tailwind
+        </li>
       </ul>
     </section>
 
-    <!-- 📞 KONTAKT -->
-    <section data-aos="zoom-in-up" data-aos-duration="1000" class="py-20 max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-3xl mb-4 text-[var(--color-accent)]">📞 Kontakt</h2>
-      <p>Napisz do mnie na: <a href="mailto:kontakt@example.com" class="underline">kontakt@example.com</a></p>
+    <!-- ✉️ Kontakt -->
+    <section data-aos="zoom-in-up" class="py-20 max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl text-pink-400 mb-4">📞 Kontakt</h2>
+      <p>Napisz do mnie na: <a href="mailto:kontakt@example.com" class="underline text-lime-300">kontakt@example.com</a></p>
     </section>
 
-    <!-- 🔚 STOPKA -->
-    <footer class="text-center py-6 text-sm text-gray-500">
-      © 2025 Moje Portfolio. Wszystkie prawa zastrzeżone.
+    <!-- 👣 Stopka -->
+    <footer class="text-center py-6 text-sm text-gray-500 dark:text-gray-400">
+      © 2025 Moje Portfolio
     </footer>
 
-    <!-- SKRYPTY -->
+    <!-- 🌟 AOS -->
     <script type="module">
       import AOS from 'https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm';
+      import { setupThemeToggle } from '/src/scripts/themeToggle.js';
       AOS.init({ once: false });
+      setupThemeToggle();
     </script>
-    <script src="/theme.js" defer></script>
 
   </body>
 </html>
