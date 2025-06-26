@@ -12,12 +12,12 @@ import '../styles/global.css';
 
   <body class="relative transition-colors duration-700 ease-in-out bg-white dark:bg-black text-black dark:text-lime-400 font-mono overflow-x-hidden">
 
-    <!-- 🎥 Tło wideo -->
+    <!-- 🎥 Tło -->
     <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover -z-10 opacity-20">
       <source src="/video/demo.mp4" type="video/mp4" />
     </video>
 
-    <!-- ☀️🌙 Przycisk motywu -->
+    <!-- 🌙 Przycisk -->
     <button
       id="theme-toggle"
       class="fixed top-4 right-4 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 z-50 cursor-pointer bg-transparent rounded-full"
@@ -25,22 +25,32 @@ import '../styles/global.css';
 
     <!-- 🌄 Nagłówek -->
     <header class="min-h-[100vh] flex flex-col items-center justify-center text-center px-6">
-      <h1 data-aos="fade-down" class="text-5xl text-red-400 mb-4">🎬 Moje Portfolio</h1>
-      <p data-aos="fade-up" data-aos-delay="200" class="text-xl">Cześć! To przykładowy tekst z animacją AOS.</p>
+      <h1 data-aos="fade-down" class="text-5xl text-red-400 mb-4">
+        🎬 Moje Portfolio
+      </h1>
+      <p data-aos="fade-up" data-aos-delay="200" class="text-xl">
+        Cześć! To przykładowy tekst z animacją AOS.
+      </p>
     </header>
 
     <!-- 👤 O mnie -->
     <section data-aos="fade-right" class="py-20 max-w-3xl mx-auto px-6 transition-colors">
       <h2 class="text-3xl text-blue-400 mb-4">👋 O mnie</h2>
-      <p>Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS.</p>
+      <p>
+        Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS.
+      </p>
     </section>
 
     <!-- 💼 Projekty -->
     <section data-aos="fade-left" class="py-20 max-w-3xl mx-auto px-6 transition-colors">
       <h2 class="text-3xl text-purple-400 mb-4">🧰 Projekty</h2>
       <ul class="space-y-4">
-        <li class="bg-lime-800 text-black p-4 rounded shadow">Portfolio z AOS i Astro</li>
-        <li class="bg-lime-800 text-black p-4 rounded shadow">Aplikacja TODO w Tailwind</li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Portfolio z AOS i Astro
+        </li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">
+          Aplikacja TODO w Tailwind
+        </li>
       </ul>
     </section>
 
@@ -55,12 +65,13 @@ import '../styles/global.css';
       © 2025 Moje Portfolio
     </footer>
 
-    <!-- 🌟 Skrypty -->
+    <!-- 🌟 AOS + Lottie + Toggle -->
+    <script src="https://unpkg.com/lottie-web@5.10.2/build/player/lottie.min.js"></script>
     <script type="module">
       import AOS from 'https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm';
+      import { setupThemeToggle } from '/scripts/themeToggle.js';
       AOS.init({ once: false });
+      setupThemeToggle();
     </script>
-    <script type="module" src="/scripts/themeToggle.js"></script>
-
   </body>
 </html>
