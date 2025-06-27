@@ -1,7 +1,7 @@
-export function setupThemeToggle() {
+function setupThemeToggle() {
   const themeToggle = document.getElementById('theme-toggle');
 
-  const animation = lottie.loadAnimation({
+  const animation = window.lottie.loadAnimation({
     container: themeToggle,
     renderer: 'svg',
     loop: false,
@@ -9,7 +9,7 @@ export function setupThemeToggle() {
     path: '/theme-toggle.json',
   });
 
-  let isDark = localStorage.getItem('theme') === 'light';
+  let isDark = localStorage.getItem('theme') === 'dark';
 
   animation.addEventListener('DOMLoaded', () => {
     if (isDark) {
@@ -35,3 +35,10 @@ export function setupThemeToggle() {
     isDark = !isDark;
   });
 }
+
+// Automatycznie uruchom, jeśli istnieje przycisk
+window.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('theme-toggle')) {
+    setupThemeToggle();
+  }
+});

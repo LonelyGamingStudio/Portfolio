@@ -1,44 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* === Font === */
+h1, h2, h3, .anton {
+  font-family: 'Anton', sans-serif;
+}
 
 /* === Płynna zmiana kolorów === */
 html, body {
   transition: background-color 0.7s ease, color 0.7s ease;
 }
 
-/* === Dodatkowe elementy z płynnością === */
+/* === Sekcje === */
 section, header, footer {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* === Przycisk przełącznika motywu === */
+/* === Theme toggle === */
 #theme-toggle {
   position: fixed;
-  top: 1rem;
+  top: 0rem;
   right: 1rem;
   width: 5rem;
   height: 5rem;
-  padding: 0;
-  margin: 0;
   border: none;
   background: none;
   cursor: pointer;
   z-index: 50;
-  box-shadow: none;
 }
 
-/* === Video tło === */
-video {
-  pointer-events: none;
-}
-
-/* === Responsywność === */
 @media (max-width: 640px) {
   #theme-toggle {
     width: 3.5rem;
     height: 3.5rem;
-    top: 0.75rem;
-    right: 0.75rem;
+  }
+}
+
+/* === Custom cursor === */
+html, body {
+  cursor: none !important;
+}
+
+#custom-cursor {
+  display: none;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 9999;
+  transition: 
+    transform 0.08s ease-out,
+    background-color 0.3s,
+    border-color 0.3s,
+    opacity 0.3s;
+}
+
+#custom-cursor::before,
+#custom-cursor::after {
+  content: '';
+  position: absolute;
+  background-color: lime;
+  transition: background-color 0.3s;
+}
+
+#custom-cursor::before {
+  width: 2px;
+  height: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#custom-cursor::after {
+  height: 2px;
+  width: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#custom-cursor.active::before,
+#custom-cursor.active::after {
+  background-color: red;
+}
+
+#custom-cursor.shoot {
+  animation: shoot-pop 0.25s ease;
+}
+
+@keyframes shoot-pop {
+  0% { transform: scale(1) rotate(0deg); }
+  30% { transform: scale(1.5) rotate(10deg); }
+  60% { transform: scale(0.8) rotate(-10deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* === Glitch / FadeIn === */
+@keyframes fadein {
+  0% { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadein {
+  animation: fadein 1s ease-out forwards;
+}
+
+.glitch-text {
+  position: relative;
+  color: white;
+  animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 2px red, -2px -2px blue; }
+  20% { text-shadow: -2px -2px red, 2px 2px blue; }
+  40% { text-shadow: 2px -2px lime, -2px 2px magenta; }
+  60% { text-shadow: none; }
+  80% { text-shadow: 1px -1px red, -1px 1px blue; }
+  100% { text-shadow: none; }
+}
+
+/* === WYŁĄCZ SYSTEMOWY KURSOR WSZĘDZIE === */
+*, *::before, *::after {
+  cursor: none !important;
+}
+
+/* === Hide/Show animacja przesuwania napisu === */
+@layer utilities {
+  .hide-left {
+    transform: translateX(-150%);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .show-left {
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
   }
 }

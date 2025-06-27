@@ -1,41 +1,68 @@
 ---
-import 'aos/dist/aos.css';
 import '../styles/global.css';
 ---
 
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <title>Portfolio z AOS</title>
+    <title>Portfolio | Michał Pawlak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+
   </head>
 
-  <body class="relative transition-colors duration-700 ease-in-out bg-white dark:bg-black text-black dark:text-lime-400 font-mono overflow-x-hidden">
+  <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
 
-    <!-- 🎥 Tło -->
-    <video autoplay muted loop playsinline class="fixed top-0 left-0 w-full h-full object-cover -z-10 opacity-20">
-      <source src="/video/demo.mp4" type="video/mp4" />
-    </video>
+    <!-- 🎯 Celownik -->
+    <div id="custom-cursor"></div>
 
-    <!-- 🌙 Przycisk -->
+    <!-- 🌙 Przycisk motywu -->
     <button
       id="theme-toggle"
       class="fixed top-4 right-4 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 z-50 cursor-pointer bg-transparent rounded-full"
     ></button>
 
-    <!-- 🌄 Nagłówek -->
-    <header class="min-h-[100vh] flex flex-col items-center justify-center text-center px-6">
-      <h1 data-aos="fade-down" class="text-5xl text-red-400 mb-4">
-        🎬 Moje Portfolio
-      </h1>
-      <p data-aos="fade-up" data-aos-delay="200" class="text-xl">
-        Cześć! To przykładowy tekst z animacją AOS.
-      </p>
+    <!-- 🎥 Wideo HERO -->
+    <header class="relative h-screen overflow-hidden flex flex-col items-center justify-center text-center px-6">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="absolute top-0 left-0 w-full h-full object-cover -z-10"
+      >
+        <source src="/video/layout4k.mp4" type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-black bg-opacity-40 -z-5"></div>
+
+      <!-- ANIMACJA NAPISU -->
+      <div class="z-10 animate-fadein leading-none select-none">
+        <h1 id="dev" class="anton glitch-text text-white text-6xl sm:text-8xl md:text-[10vw]">
+          DEVELOPER
+        </h1>
+        <div id="amp" class="glitch-text text-white text-5xl sm:text-6xl mt-1 mb-1">
+          &
+        </div>
+        <h1 id="it" class="anton glitch-text text-white text-6xl sm:text-8xl md:text-[10vw]">
+          IT TECHNICIAN
+        </h1>
+      </div>
+
+      <div
+        id="name-banner"
+        class="fixed top-11 left-12 z-50 select-none"
+        style="transform: translateX(0px);"
+      >
+        <h1 class="anton glitch-text text-white text-2xl sm:text-6xl md:text-7xl">
+          MICHAŁ PAWLAK
+        </h1>
+      </div>
     </header>
 
     <!-- 👤 O mnie -->
     <section data-aos="fade-right" class="py-20 max-w-3xl mx-auto px-6 transition-colors">
-      <h2 class="text-3xl text-blue-400 mb-4">👋 O mnie</h2>
+      <h2 class="text-3xl text-blue-400 mb-4 anton">👋 O mnie</h2>
       <p>
         Jestem początkującym twórcą frontendu. Lubię Tailwinda, Astro i AOS.
       </p>
@@ -43,35 +70,80 @@ import '../styles/global.css';
 
     <!-- 💼 Projekty -->
     <section data-aos="fade-left" class="py-20 max-w-3xl mx-auto px-6 transition-colors">
-      <h2 class="text-3xl text-purple-400 mb-4">🧰 Projekty</h2>
+      <h2 class="text-3xl text-purple-400 mb-4 anton">🧰 Projekty</h2>
       <ul class="space-y-4">
-        <li class="bg-lime-800 text-black p-4 rounded shadow">
-          Portfolio z AOS i Astro
-        </li>
-        <li class="bg-lime-800 text-black p-4 rounded shadow">
-          Aplikacja TODO w Tailwind
-        </li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">Portfolio z AOS i Astro</li>
+        <li class="bg-lime-800 text-black p-4 rounded shadow">Aplikacja TODO w Tailwind</li>
       </ul>
     </section>
 
     <!-- ✉️ Kontakt -->
     <section data-aos="zoom-in-up" class="py-20 max-w-3xl mx-auto px-6 text-center transition-colors">
-      <h2 class="text-3xl text-pink-400 mb-4">📞 Kontakt</h2>
-      <p>Napisz do mnie na: <a href="mailto:kontakt@example.com" class="underline text-lime-300">kontakt@example.com</a></p>
+      <h2 class="text-3xl text-pink-400 mb-4 anton">📞 Kontakt</h2>
+      <p>
+        Napisz do mnie na: <a href="mailto:michal.pawlak.praca@gmail.com" class="underline text-lime-300">michal.pawlak.praca@gmail.com</a>
+      </p>
     </section>
 
-    <!-- 👣 Stopka -->
-    <footer class="text-center py-6 text-sm text-gray-500 dark:text-gray-400 transition-colors">
-      © 2025 Moje Portfolio
-    </footer>
+<!-- 👣 Stopka -->
+<footer class="text-center py-6 text-sm text-white dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
+  MICHAŁ PAWLAK 2025 | ALL RIGHTS RESERVED ©
+</footer>
 
-    <!-- 🌟 AOS + Lottie + Toggle -->
+
+    <!-- 🌟 Skrypty -->
     <script src="https://unpkg.com/lottie-web@5.10.2/build/player/lottie.min.js"></script>
-    <script type="module">
-      import AOS from 'https://cdn.jsdelivr.net/npm/aos@2.3.4/+esm';
-      import { setupThemeToggle } from '/scripts/themeToggle.js';
-      AOS.init({ once: false });
-      setupThemeToggle();
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" onload="AOS.init({ once: false })"></script>
+    <script is:inline src="/scripts/themeToggle.js"></script>
+    <script is:inline src="/scripts/cursor.js"></script>
+
+    <!-- Scroll Animation Script -->
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const banner = document.getElementById('name-banner');
+        const dev = document.getElementById('dev');
+        const amp = document.getElementById('amp');
+        const it = document.getElementById('it');
+
+        let targetOffset = 0;
+        let currentOffset = 0;
+
+        let devTarget = 0;
+        let devCurrent = 0;
+
+        let ampTarget = 0;
+        let ampCurrent = 0;
+
+        let itTarget = 0;
+        let itCurrent = 0;
+
+        const animate = () => {
+          // płynne przesuwanie baneru
+          currentOffset += (targetOffset - currentOffset) * 0.1;
+          banner.style.transform = `translateX(${-currentOffset}px)`;
+
+          // płynne przesuwanie napisów
+          devCurrent += (devTarget - devCurrent) * 0.1;
+          ampCurrent += (ampTarget - ampCurrent) * 0.1;
+          itCurrent += (itTarget - itCurrent) * 0.1;
+
+          dev.style.transform = `translateX(${devCurrent}px)`;
+          amp.style.transform = `translateX(${-ampCurrent}px)`;
+          it.style.transform = `translateX(${itCurrent}px)`;
+
+          requestAnimationFrame(animate);
+        };
+
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY;
+          targetOffset = scrollY * 1.2; // MICHAŁ PAWLAK
+          devTarget = scrollY * 1.0;    // DEVELOPER
+          ampTarget = scrollY * 1.2;    // &
+          itTarget = scrollY * 0.6;     // IT TECHNICIAN
+        });
+
+        animate();
+      });
     </script>
   </body>
 </html>
