@@ -19,11 +19,17 @@ import '../styles/global.css';
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
 
+    <!-- 🔧 Styl zmniejszający Cookiebot -->
     <style>
       div#CybotCookiebotDialog {
-        scale: 65%;
-        transform-origin: bottom right;
-        z-index: 9999;
+        transform: scale(0.30) !important;
+        transform-origin: bottom right !important;
+      }
+      #CybotCookiebotDialogBody, #CybotCookiebotDialogBodyContent {
+        font-size: 10px !important;
+      }
+      #CybotCookiebotDialogNav, #CybotCookiebotDialogFooter, #CybotCookiebotDialogBodyButtons {
+        transform: scale(0.30) !important;
       }
     </style>
   </head>
