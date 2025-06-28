@@ -2,14 +2,14 @@
 import '../styles/global.css';
 ---
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MN5XSVMVPC"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-MN5XSVMVPC');
-</script>
+<!-- Cookiebot Consent Management Platform -->
+<script
+  id="Cookiebot"
+  src="https://consent.cookiebot.com/uc.js"
+  data-cbid="33fc1de1-c86c-46d0-9841-8c13574ee2af"
+  data-blockingmode="auto"
+  type="text/javascript"
+></script>
 
 <html lang="pl">
   <head>
@@ -21,15 +21,6 @@ import '../styles/global.css';
   </head>
 
   <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
-
-    <!-- Google Analytics (do załadowania przez Cookiebot) -->
-    <script type="text/plain" data-cookieconsent="statistics">
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MN5XSVMVPC');
-    </script>
-
 
     <!-- 🎯 Celownik -->
     <div id="custom-cursor"></div>
@@ -106,6 +97,14 @@ import '../styles/global.css';
     <footer class="text-center py-6 text-sm text-white dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
       MICHAŁ PAWLAK 2025 | ALL RIGHTS RESERVED ©
     </footer>
+
+    <!-- Google Analytics przez Cookiebot -->
+    <script type="text/plain" data-cookieconsent="statistics">
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MN5XSVMVPC');
+    </script>
 
     <!-- 🌟 Skrypty -->
     <script src="https://unpkg.com/lottie-web@5.10.2/build/player/lottie.min.js"></script>
