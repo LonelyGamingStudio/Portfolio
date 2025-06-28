@@ -39,11 +39,7 @@ import '../styles/global.css';
     <!-- 🎯 Celownik -->
     <div id="custom-cursor"></div>
 
-    <!-- 🌙 Przycisk motywu -->
-    <button
-      id="theme-toggle"
-      class="fixed top-4 right-4 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 z-50 cursor-pointer bg-transparent rounded-full"
-    ></button>
+
 
     <!-- 🎥 Wideo HERO -->
     <header class="relative h-screen overflow-hidden flex flex-col items-center justify-center text-center px-6">
@@ -128,6 +124,27 @@ import '../styles/global.css';
 
     <!-- Scroll Animation Script -->
     <script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('theme-toggle')) {
+    const button = document.createElement('button');
+    button.id = 'theme-toggle';
+    button.className = 'fixed top-4 right-4 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 z-50 cursor-pointer bg-transparent rounded-full';
+    document.body.appendChild(button);
+  }
+
+  const toggle = document.getElementById('theme-toggle');
+
+  toggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  // Set initial theme
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+});
+
       window.addEventListener('DOMContentLoaded', () => {
         const banner = document.getElementById('name-banner');
         const dev = document.getElementById('dev');

@@ -1,6 +1,10 @@
 function setupThemeToggle() {
   const themeToggle = document.getElementById('theme-toggle');
 
+  // Zapobiegaj wielokrotnemu bindowaniu
+  if (themeToggle.dataset.bound) return;
+  themeToggle.dataset.bound = 'true';
+
   const animation = window.lottie.loadAnimation({
     container: themeToggle,
     renderer: 'svg',
@@ -36,9 +40,14 @@ function setupThemeToggle() {
   });
 }
 
-// Automatycznie uruchom, jeśli istnieje przycisk
+// Automatycznie uruchom, jeśli istnieje przycisk lub go utwórz
 window.addEventListener('DOMContentLoaded', () => {
-  if (document.getElementById('theme-toggle')) {
-    setupThemeToggle();
+  if (!document.getElementById('theme-toggle')) {
+    const button = document.createElement('button');
+    button.id = 'theme-toggle';
+    button.className = 'fixed top-4 right-4 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 z-50 cursor-pointer bg-transparent rounded-full';
+    document.body.appendChild(button);
   }
+
+  setupThemeToggle();
 });
