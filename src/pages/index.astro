@@ -7,7 +7,7 @@ import '../styles/global.css';
   id="Cookiebot"
   src="https://consent.cookiebot.com/uc.js"
   data-cbid="33fc1de1-c86c-46d0-9841-8c13574ee2af"
-  data-blockingmode="auto"
+  data-blockingmode="none"
   type="text/javascript"
 ></script>
 
@@ -20,18 +20,12 @@ import '../styles/global.css';
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
 
     <!-- 🔧 Styl zmniejszający Cookiebot -->
-    <style>
-      div#CybotCookiebotDialog {
-        transform: scale(0.30) !important;
-        transform-origin: bottom right !important;
-      }
-      #CybotCookiebotDialogBody, #CybotCookiebotDialogBodyContent {
-        font-size: 10px !important;
-      }
-      #CybotCookiebotDialogNav, #CybotCookiebotDialogFooter, #CybotCookiebotDialogBodyButtons {
-        transform: scale(0.30) !important;
-      }
-    </style>
+<style>
+  div#CybotCookiebotDialog {
+    transform: scale(0.4);
+    transform-origin: bottom right;
+  }
+</style>
   </head>
 
   <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
