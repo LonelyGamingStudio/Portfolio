@@ -2,14 +2,22 @@
 import '../styles/global.css';
 ---
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MN5XSVMVPC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MN5XSVMVPC');
+</script>
+
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
     <title>Portfolio | Michał Pawlak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
   </head>
 
   <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
@@ -85,11 +93,10 @@ import '../styles/global.css';
       </p>
     </section>
 
-<!-- 👣 Stopka -->
-<footer class="text-center py-6 text-sm text-white dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
-  MICHAŁ PAWLAK 2025 | ALL RIGHTS RESERVED ©
-</footer>
-
+    <!-- 👣 Stopka -->
+    <footer class="text-center py-6 text-sm text-white dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
+      MICHAŁ PAWLAK 2025 | ALL RIGHTS RESERVED ©
+    </footer>
 
     <!-- 🌟 Skrypty -->
     <script src="https://unpkg.com/lottie-web@5.10.2/build/player/lottie.min.js"></script>
@@ -118,11 +125,9 @@ import '../styles/global.css';
         let itCurrent = 0;
 
         const animate = () => {
-          // płynne przesuwanie baneru
           currentOffset += (targetOffset - currentOffset) * 0.1;
           banner.style.transform = `translateX(${-currentOffset}px)`;
 
-          // płynne przesuwanie napisów
           devCurrent += (devTarget - devCurrent) * 0.1;
           ampCurrent += (ampTarget - ampCurrent) * 0.1;
           itCurrent += (itTarget - itCurrent) * 0.1;
@@ -136,10 +141,10 @@ import '../styles/global.css';
 
         window.addEventListener('scroll', () => {
           const scrollY = window.scrollY;
-          targetOffset = scrollY * 1.2; // MICHAŁ PAWLAK
-          devTarget = scrollY * 1.0;    // DEVELOPER
-          ampTarget = scrollY * 1.2;    // &
-          itTarget = scrollY * 0.6;     // IT TECHNICIAN
+          targetOffset = scrollY * 1.2;
+          devTarget = scrollY * 1.0;
+          ampTarget = scrollY * 1.2;
+          itTarget = scrollY * 0.6;
         });
 
         animate();
