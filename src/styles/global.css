@@ -143,3 +143,14 @@ html, body {
     transition: transform 0.6s ease-in-out;
   }
 }
+
+/* === Ukryj niestandardowy kursor i przywróć domyślny na mobilkach === */
+@media (max-width: 640px) {
+  #custom-cursor {
+    display: none !important;
+  }
+
+  *, *::before, *::after {
+    cursor: auto !important;
+  }
+}

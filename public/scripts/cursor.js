@@ -1,12 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Sprawdź, czy urządzenie obsługuje hover (czyli myszy)
+  if (window.matchMedia('(hover: none)').matches) {
+    // Urządzenie dotykowe - nie uruchamiaj niestandardowego kursora
+    return;
+  }
+
   const cursor = document.getElementById('custom-cursor');
   let cursorActivated = false;
 
   document.addEventListener('mousemove', (e) => {
-    // 🔓 Pierwszy ruch myszy – pokaż kursor
     if (!cursorActivated) {
-      cursor.style.display = 'block';      // ← pokazuje
-      cursor.style.opacity = '1';          // ← płynnie
+      cursor.style.display = 'block';
+      cursor.style.opacity = '1';
       cursorActivated = true;
     }
 
