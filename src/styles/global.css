@@ -1,8 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* === Reset marginesów === */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.inter-font {
+  font-family: 'Inter', sans-serif;
+}
+
 
 /* === Font === */
 h1, h2, h3, .anton {
@@ -11,12 +24,43 @@ h1, h2, h3, .anton {
 
 /* === Płynna zmiana kolorów === */
 html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   transition: background-color 0.7s ease, color 0.7s ease;
+  scroll-behavior: smooth;
 }
 
 /* === Sekcje === */
 section, header, footer {
   transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+header {
+  background-color: transparent !important;
+}
+
+header {
+  background-color: transparent !important;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+header video {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  display: block !important;
+  z-index: -10 !important;
 }
 
 /* === Theme toggle === */
@@ -44,6 +88,12 @@ html, body {
   cursor: none !important;
 }
 
+@media (max-width: 768px) {
+  html, body {
+    cursor: auto !important;
+  }
+}
+
 #custom-cursor {
   display: none;
   opacity: 0;
@@ -54,11 +104,7 @@ html, body {
   height: 30px;
   pointer-events: none;
   z-index: 9999;
-  transition: 
-    transform 0.08s ease-out,
-    background-color 0.3s,
-    border-color 0.3s,
-    opacity 0.3s;
+  transition: transform 0.08s ease-out, background-color 0.3s, border-color 0.3s, opacity 0.3s;
 }
 
 #custom-cursor::before,
@@ -131,6 +177,12 @@ html, body {
   cursor: none !important;
 }
 
+@media (max-width: 768px) {
+  *, *::before, *::after {
+    cursor: auto !important;
+  }
+}
+
 /* === Hide/Show animacja przesuwania napisu === */
 @layer utilities {
   .hide-left {
@@ -144,13 +196,302 @@ html, body {
   }
 }
 
-/* === Ukryj niestandardowy kursor i przywróć domyślny na mobilkach === */
-@media (max-width: 640px) {
-  #custom-cursor {
-    display: none !important;
-  }
+.glitch-border {
+  position: relative;
+  border-radius: 9999px; /* okrągła ramka */
+  overflow: hidden;
+  display: inline-block;
+}
 
-  *, *::before, *::after {
-    cursor: auto !important;
+.glitch-border::before,
+.glitch-border::after {
+  content: "";
+  position: absolute;
+  top: -1px; 
+  left: -6px; 
+  right: -6px; 
+  bottom: -1px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 10;
+  border: 6px solid transparent;
+  filter: drop-shadow(0 0 14px transparent);
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+}
+
+.glitch-border::before {
+  border-color: #22d3ee; /* jasny cyjan */
+  filter: drop-shadow(0 0 10px #22d3ee);
+  animation-name: glitch-border-cyan;
+}
+
+.glitch-border::after {
+  border-color: #2563eb; /* intensywny niebieski (blue-600) */
+  filter: drop-shadow(0 0 12px #2563eb);
+  animation-name: glitch-border-blue;
+}
+
+@keyframes glitch-border-cyan {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    opacity: 1;
   }
+  20% {
+    clip-path: inset(10% 0 85% 0);
+    transform: translate(-2px, 1px);
+    opacity: 0.7;
+  }
+  40% {
+    clip-path: inset(40% 0 43% 0);
+    transform: translate(2px, -1px);
+    opacity: 0.6;
+  }
+  60% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(-1px, 2px);
+    opacity: 0.8;
+  }
+  80% {
+    clip-path: inset(20% 0 65% 0);
+    transform: translate(1px, -2px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes glitch-border-blue {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  20% {
+    clip-path: inset(15% 0 70% 0);
+    transform: translate(2px, -1px);
+    opacity: 0.7;
+  }
+  40% {
+    clip-path: inset(50% 0 30% 0);
+    transform: translate(-2px, 1px);
+    opacity: 0.6;
+  }
+  60% {
+    clip-path: inset(70% 0 15% 0);
+    transform: translate(1px, -2px);
+    opacity: 0.8;
+  }
+  80% {
+    clip-path: inset(30% 0 50% 0);
+    transform: translate(-1px, 2px);
+    opacity: 0.7;
+  }
+}
+
+.glitch-border-rect {
+  position: relative;
+  border-radius: 0.5rem; /* zaokrąglenie przycisku, np. rounded-md */
+  overflow: hidden;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.glitch-border-rect::before,
+.glitch-border-rect::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 0.5rem;
+  pointer-events: none;
+  z-index: 10;
+  border: 4px solid transparent;
+  filter: drop-shadow(0 0 10px transparent);
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+}
+
+.glitch-border-rect::before {
+  border-color: #22d3ee; /* jasny cyjan */
+  filter: drop-shadow(0 0 10px #22d3ee);
+  animation-name: glitch-border-cyan-rect;
+}
+
+.glitch-border-rect::after {
+  border-color: #2563eb; /* intensywny niebieski */
+  filter: drop-shadow(0 0 12px #2563eb);
+  animation-name: glitch-border-blue-rect;
+}
+
+@keyframes glitch-border-cyan-rect {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  20% {
+    clip-path: inset(10% 0 85% 0);
+    transform: translate(-2px, 1px);
+    opacity: 0.7;
+  }
+  40% {
+    clip-path: inset(40% 0 43% 0);
+    transform: translate(2px, -1px);
+    opacity: 0.6;
+  }
+  60% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(-1px, 2px);
+    opacity: 0.8;
+  }
+  80% {
+    clip-path: inset(20% 0 65% 0);
+    transform: translate(1px, -2px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes glitch-border-blue-rect {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  20% {
+    clip-path: inset(15% 0 70% 0);
+    transform: translate(2px, -1px);
+    opacity: 0.7;
+  }
+  40% {
+    clip-path: inset(50% 0 30% 0);
+    transform: translate(-2px, 1px);
+    opacity: 0.6;
+  }
+  60% {
+    clip-path: inset(70% 0 15% 0);
+    transform: translate(1px, -2px);
+    opacity: 0.8;
+  }
+  80% {
+    clip-path: inset(30% 0 50% 0);
+    transform: translate(-1px, 2px);
+    opacity: 0.7;
+  }
+}
+
+.glitch-border-button {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border-radius: 0.375rem;
+  color: cyan;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  overflow: visible;
+  z-index: 0;
+  /* BEZ pointer-events tutaj! */
+}
+
+/* animowana fala/kreska dookoła ramki */
+.glitch-border-button::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  border-radius: 0.5rem;
+  pointer-events: none; /* tutaj tak! */
+  z-index: 2;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #06b6d4 25%,
+    #3b82f6 50%,
+    #06b6d4 75%,
+    transparent 100%
+  );
+
+  background-size: 200% 100%;
+
+  animation: wave-loop 3s linear infinite;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+/* Zmiana kolorów na czerwone na hover */
+.glitch-border-button:hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #f87171 25%,
+    #b91c1c 50%,
+    #f87171 75%,
+    transparent 100%
+  );
+}
+
+.glitch-border-button:hover {
+  color: #b91c1c;
+}
+
+@keyframes wave-loop {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 10%;
+  }
+}
+
+
+/* === Poprawka dla przycisku About - usuwa białą przerwę u góry === */
+a[href="#about"] {
+  position: fixed !important;
+  top: 1.5rem !important; /* zamiast top-10 (2.5rem) daj mniejszy margines */
+  right: 1.5rem !important;
+  z-index: 50 !important;
+  padding-top: 1.25rem !important; /* py-5 */
+  padding-bottom: 1.25rem !important;
+  padding-left: 2.5rem !important; /* px-10 */
+  padding-right: 2.5rem !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  border-radius: 0.375rem !important; /* rounded-md */
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 1.25rem !important; /* text-xl */
+  overflow: visible !important;
+  user-select: none !important;
+  display: inline-block !important;
+}
+
+/* Poprawka dla span underline w About */
+a[href="#about"] > span {
+  display: block !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(to right, #06b6d4, #3b82f6, #06b6d4) !important;
+  transition: width 0.5s ease !important;
+  transform: translateX(-50%) !important;
+}
+
+a[href="#about"]:hover > span {
+  width: 100% !important;
 }
