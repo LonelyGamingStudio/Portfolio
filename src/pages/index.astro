@@ -25,23 +25,60 @@ import '../styles/global.css';
         transform: scale(0.4);
         transform-origin: bottom right;
       }
+
+
+      #about-button span {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        height: 2px;
+        width: 0;
+        background: linear-gradient(to right, #22d3ee, #3b82f6, #06b6d4);
+        transition: width 0.5s;
+        transform: translateX(-50%);
+      }
+
+      #about-button:hover span {
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        #about-button {
+          top: 1.5rem;
+          right: auto;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      .glow-line {
+        filter: drop-shadow(0 0 8px #a78bfa);
+      }
     </style>
   </head>
 
   <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
 
-<!-- MENU w prawym górnym rogu -->
-<div class="absolute top-0 right-0 z-10 bg-white/15 text-white w-[33vw] min-h-[5.2rem] rounded-bl-3xl flex flex-col items-end px-6 py-4 gap-4">
+<!-- MENU z About -->
+<div
+  class="absolute top-0 right-0 z-10 bg-white/10 text-white
+         flex items-start justify-start px-6 gap-6
+         h-[5.4rem] w-[40vw] min-w-[280px] max-w-[520px] rounded-bl-3xl"
+>
+  <a
+    href="#about"
+    class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group"
+  >
+    About
+    <span
+      class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"
+    ></span>
+  </a>
 </div>
 
 
-    <div id="custom-cursor"></div>
 
-    <style>
-      .glow-line {
-        filter: drop-shadow(0 0 8px #a78bfa);
-      }
-    </style>
+    <div id="custom-cursor"></div>
 
     <header class="relative h-screen overflow-hidden flex flex-col items-center justify-center text-center px-4 sm:px-6">
       <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover -z-10">
@@ -59,17 +96,6 @@ import '../styles/global.css';
         <h1 id="it" class="anton glitch-text text-white text-4xl sm:text-6xl md:text-[10vw]">
           IT TECHNICIAN
         </h1>
-
-        <!-- PRZYCISK ABOUT w headerze -->
-        <a
-          href="#about"
-          class="absolute top-10 right-6 z-0 text-white px-10 py-5 rounded-md relative group font-semibold text-xl"
-        >
-          About
-          <span
-            class="fixed bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-500 transition-all duration-500 group-hover:w-full"
-          ></span>
-        </a>
       </div>
 
       <div id="name-banner" class="fixed top-11 left-4 sm:left-12 z-50 select-none" style="transform: translateX(0px);">

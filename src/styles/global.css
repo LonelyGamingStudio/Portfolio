@@ -459,46 +459,14 @@ html, body {
 }
 
 
-/* === Poprawka dla przycisku About - usuwa białą przerwę u góry === */
-a[href="#about"] {
-  position: fixed;
-  top: -14.7rem !important; /* zamiast top-10 (2.5rem) daj mniejszy margines */
-  right: 1.5rem !important;
-  z-index: 0 !important;
-  padding-top: 1.25rem !important; /* py-5 */
-  padding-bottom: 1.25rem !important;
-  padding-left: 2.5rem !important; /* px-10 */
-  padding-right: 2.5rem !important;
-  line-height: 1 !important;
-  background: transparent !important;
-  border-radius: 0.375rem !important; /* rounded-md */
-  color: white !important;
-  font-weight: 600 !important;
-  font-size: 1.25rem !important; /* text-xl */
-  overflow: visible !important;
-  user-select: none !important;
-  display: inline-block !important;
-}
 
-#fixed-menu {
-  position: fixed !important;
-  top: 0 !important;
-  right: 0 !important;
-  z-index: 999999 !important;
-  width: 33vw !important;
-  min-height: 5.2rem !important;
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  color: white !important;
-  border-bottom-left-radius: 1.5rem !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-end !important;
-  padding: 1rem 1.5rem !important;
-  gap: 1rem !important;
-
-  will-change: transform !important;
-  backface-visibility: hidden !important;
-  pointer-events: auto !important;
+@media (max-width: 768px) {
+  #about-button {
+    top: 1.5rem;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 
