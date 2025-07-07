@@ -18,43 +18,24 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet" />
+
     <style>
       div#CybotCookiebotDialog {
         transform: scale(0.4);
         transform-origin: bottom right;
-      }
-
-      /* Kontener na particles.js */
-      #particles-js {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -20; /* poniżej wszystkiego */
-        
       }
     </style>
   </head>
 
   <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
 
-    <!-- Kontener na particles -->
-    <div id="particles-js"></div>
+<!-- MENU w prawym górnym rogu -->
+<div class="absolute top-0 right-0 z-10 bg-white/15 text-white w-[33vw] min-h-[5.2rem] rounded-bl-3xl flex flex-col items-end px-6 py-4 gap-4">
+</div>
+
 
     <div id="custom-cursor"></div>
-
-    <!-- PRZYCISK ABOUT -->
-    <a
-      href="#about"
-      class="fixed top-10 right-6 z-50 text-white px-10 py-5 rounded-md relative group font-semibold text-xl transform"
-      style="transform: translateX(-590px);"
-    >
-      About
-      <span
-        class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-500 transition-all duration-500 group-hover:w-full"
-        style="transform: translateX(-50%)"
-      ></span>
-    </a>
 
     <style>
       .glow-line {
@@ -78,6 +59,17 @@ import '../styles/global.css';
         <h1 id="it" class="anton glitch-text text-white text-4xl sm:text-6xl md:text-[10vw]">
           IT TECHNICIAN
         </h1>
+
+        <!-- PRZYCISK ABOUT w headerze -->
+        <a
+          href="#about"
+          class="fixed top-10 right-6 z-0 text-white px-10 py-5 rounded-md relative group font-semibold text-xl"
+        >
+          About
+          <span
+            class="fixed bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-500 transition-all duration-500 group-hover:w-full"
+          ></span>
+        </a>
       </div>
 
       <div id="name-banner" class="fixed top-11 left-4 sm:left-12 z-50 select-none" style="transform: translateX(0px);">
@@ -104,14 +96,14 @@ import '../styles/global.css';
             <a
               href="/files/michal-pawlak-resume.pdf"
               target="_blank"
-              class="w-32 py-3 text-cyan-500 inter-font rounded glitch-border-button text-center"
+              class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-400"
             >
               RESUME
             </a>
             <a
               href="https://www.linkedin.com/in/michał-pawlak-480297264/"
               target="_blank"
-              class="w-32 py-3 text-cyan-500 inter-font rounded glitch-border-button text-center"
+              class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
             >
               LINKEDIN
             </a>
@@ -120,19 +112,15 @@ import '../styles/global.css';
 
         <!-- OPIS -->
         <div class="w-full md:w-2/3 text-left" data-aos="fade-left" data-aos-delay="100">
-          <h2 class="text-4xl font-bold mb-4 anton text-blue-500 inter-font">About me</h2>
-          <p class="text-lg leading-relaxed text-black dark:text-lime-300 inter-font">
-            👨‍💻
-            I'm a Software Engineer with over 4 years of experience in software development and cloud technologies.
-            🎓
-            Currently working toward my Honours Bachelor of Science in Computer Science at Ontario Tech University, I'm all about building reliable, scalable software that makes a difference.
-            🛠
-            From full-stack development to cloud-based solutions, I've led enterprise-level projects that streamline operations and deliver real impact.
-            🔧
-            I enjoy automating workflows, optimizing systems, and turning complex challenges into real results. 📈
-            💡
-            I'm always curious and constantly learning.
-          </p>
+          <h2 class="text-5xl font-bold mb-4 font-montserrat inter-font text-black-300 dark:text-cyan-300">Hi there!</h2>
+          <ul class="text-xl leading-relaxed text-black dark:text-white inter-font list-inside space-y-3">
+            <li>💻 Over 6 years creating games and apps for Android, iOS, and Windows (my true passion)</li>
+            <li>🌐 4+ years IT experience, including modern website development</li>
+            <li>⚡ 3 years as an electrician, plus 1 year independently designing and building EV charging stations</li>
+            <li>🔧 Hobbyist programmer creating advanced ESP32 microcontroller projects</li>
+            <li>🚀 Persistent and driven, always pushing to deliver outstanding results</li>
+            <li>🚚 Licensed professional driver (C+E) with extensive experience in VIP transportation and freight logistics, showcasing exceptional responsibility, punctuality, and commitment</li>
+          </ul>
         </div>
 
         <!-- PRZYCISK DALEJ -->
@@ -178,37 +166,6 @@ import '../styles/global.css';
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" onload="AOS.init({ once: false, disable: 'mobile' })"></script>
     <script is:inline src="/scripts/themeToggle.js"></script>
     <script is:inline src="/scripts/cursor.js"></script>
-
-    <!-- tsparticles -->
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.min.js" client:load></script>
-<script client:load>
-  if (window.tsParticles) {
-tsParticles.load('particles-js', {
-  particles: {
-    number: { value: 60, density: { enable: true, area: 800 } },
-    color: { value: '#ff0000' },  // czerwony dla kontrastu
-    shape: { type: 'circle' },    // kółka, łatwiej zauważyć
-    opacity: { value: 0.8, random: false },  // większa przezroczystość
-    size: { value: 8, random: true },
-    move: { enable: true, speed: 3, random: true }
-  },
-  interactivity: {
-    events: {
-      onHover: { enable: true, mode: 'repulse' },
-      onClick: { enable: true, mode: 'push' },
-      resize: true
-    },
-    modes: {
-      repulse: { distance: 100, duration: 0.4 },
-      push: { quantity: 4 }
-    }
-  },
-  detectRetina: true
-});
-
-  }
-</script>
-
 
     <!-- Scroll Animation Script -->
     <script>

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 
 @tailwind base;
 @tailwind components;
@@ -65,7 +67,7 @@ header video {
 
 /* === Theme toggle === */
 #theme-toggle {
-  position: fixed;
+  position: absolute;
   top: 0rem;
   right: 1rem;
   width: 5rem;
@@ -390,14 +392,13 @@ html, body {
   padding: 0.75rem 1.5rem;
   background: transparent;
   border-radius: 0.375rem;
-  color: cyan;
   text-decoration: none;
   cursor: pointer;
   user-select: none;
   overflow: visible;
   z-index: 0;
-  /* BEZ pointer-events tutaj! */
 }
+
 
 /* animowana fala/kreska dookoła ramki */
 .glitch-border-button::after {
@@ -460,10 +461,10 @@ html, body {
 
 /* === Poprawka dla przycisku About - usuwa białą przerwę u góry === */
 a[href="#about"] {
-  position: fixed !important;
-  top: 1.5rem !important; /* zamiast top-10 (2.5rem) daj mniejszy margines */
+  position: fixed;
+  top: -14.7rem !important; /* zamiast top-10 (2.5rem) daj mniejszy margines */
   right: 1.5rem !important;
-  z-index: 50 !important;
+  z-index: 0 !important;
   padding-top: 1.25rem !important; /* py-5 */
   padding-bottom: 1.25rem !important;
   padding-left: 2.5rem !important; /* px-10 */
@@ -479,6 +480,28 @@ a[href="#about"] {
   display: inline-block !important;
 }
 
+#fixed-menu {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  z-index: 999999 !important;
+  width: 33vw !important;
+  min-height: 5.2rem !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  border-bottom-left-radius: 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  padding: 1rem 1.5rem !important;
+  gap: 1rem !important;
+
+  will-change: transform !important;
+  backface-visibility: hidden !important;
+  pointer-events: auto !important;
+}
+
+
 /* Poprawka dla span underline w About */
 a[href="#about"] > span {
   display: block !important;
@@ -491,6 +514,14 @@ a[href="#about"] > span {
   transition: width 0.5s ease !important;
   transform: translateX(-50%) !important;
 }
+
+.hi-there {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; /* gruba czcionka */
+  font-size: 3rem; /* możesz zmienić rozmiar */
+  color: #3b82f6; /* niebieski, możesz zmienić kolor */
+}
+
 
 a[href="#about"]:hover > span {
   width: 100% !important;
