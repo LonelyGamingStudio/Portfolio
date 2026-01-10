@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,7 +16,6 @@ html, body {
 .inter-font {
   font-family: 'Inter', sans-serif;
 }
-
 
 /* === Font === */
 h1, h2, h3, .anton {
@@ -67,7 +65,7 @@ header video {
 
 /* === Theme toggle === */
 #theme-toggle {
-  position: absolute;
+  position: fixed;
   top: 0rem;
   right: 1rem;
   width: 5rem;
@@ -198,20 +196,28 @@ html, body {
   }
 }
 
+/* =========================================================
+   GLITCH BORDER (KÓŁKA) – zrobione na zmienne, żeby Projects
+   mogło mieć inne kolory BEZ ruszania About
+   ========================================================= */
 .glitch-border {
   position: relative;
   border-radius: 9999px; /* okrągła ramka */
   overflow: hidden;
   display: inline-block;
+
+  /* domyślne kolory (About i reszta strony) */
+  --gb-c1: #22d3ee; /* cyan */
+  --gb-c2: #2563eb; /* blue */
 }
 
 .glitch-border::before,
 .glitch-border::after {
   content: "";
   position: absolute;
-  top: -1px; 
-  left: -6px; 
-  right: -6px; 
+  top: -1px;
+  left: -6px;
+  right: -6px;
   bottom: -1px;
   border-radius: 9999px;
   pointer-events: none;
@@ -225,14 +231,14 @@ html, body {
 }
 
 .glitch-border::before {
-  border-color: #22d3ee; /* jasny cyjan */
-  filter: drop-shadow(0 0 10px #22d3ee);
+  border-color: var(--gb-c1);
+  filter: drop-shadow(0 0 10px var(--gb-c1));
   animation-name: glitch-border-cyan;
 }
 
 .glitch-border::after {
-  border-color: #2563eb; /* intensywny niebieski (blue-600) */
-  filter: drop-shadow(0 0 12px #2563eb);
+  border-color: var(--gb-c2);
+  filter: drop-shadow(0 0 12px var(--gb-c2));
   animation-name: glitch-border-blue;
 }
 
@@ -292,101 +298,9 @@ html, body {
   }
 }
 
-.glitch-border-rect {
-  position: relative;
-  border-radius: 0.5rem; /* zaokrąglenie przycisku, np. rounded-md */
-  overflow: hidden;
-  display: inline-block;
-  box-sizing: border-box;
-}
-
-.glitch-border-rect::before,
-.glitch-border-rect::after {
-  content: "";
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  border-radius: 0.5rem;
-  pointer-events: none;
-  z-index: 10;
-  border: 4px solid transparent;
-  filter: drop-shadow(0 0 10px transparent);
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-direction: alternate;
-}
-
-.glitch-border-rect::before {
-  border-color: #22d3ee; /* jasny cyjan */
-  filter: drop-shadow(0 0 10px #22d3ee);
-  animation-name: glitch-border-cyan-rect;
-}
-
-.glitch-border-rect::after {
-  border-color: #2563eb; /* intensywny niebieski */
-  filter: drop-shadow(0 0 12px #2563eb);
-  animation-name: glitch-border-blue-rect;
-}
-
-@keyframes glitch-border-cyan-rect {
-  0%, 100% {
-    clip-path: inset(0 0 0 0);
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  20% {
-    clip-path: inset(10% 0 85% 0);
-    transform: translate(-2px, 1px);
-    opacity: 0.7;
-  }
-  40% {
-    clip-path: inset(40% 0 43% 0);
-    transform: translate(2px, -1px);
-    opacity: 0.6;
-  }
-  60% {
-    clip-path: inset(60% 0 20% 0);
-    transform: translate(-1px, 2px);
-    opacity: 0.8;
-  }
-  80% {
-    clip-path: inset(20% 0 65% 0);
-    transform: translate(1px, -2px);
-    opacity: 0.7;
-  }
-}
-
-@keyframes glitch-border-blue-rect {
-  0%, 100% {
-    clip-path: inset(0 0 0 0);
-    transform: translate(0, 0);
-    opacity: 1;
-  }
-  20% {
-    clip-path: inset(15% 0 70% 0);
-    transform: translate(2px, -1px);
-    opacity: 0.7;
-  }
-  40% {
-    clip-path: inset(50% 0 30% 0);
-    transform: translate(-2px, 1px);
-    opacity: 0.6;
-  }
-  60% {
-    clip-path: inset(70% 0 15% 0);
-    transform: translate(1px, -2px);
-    opacity: 0.8;
-  }
-  80% {
-    clip-path: inset(30% 0 50% 0);
-    transform: translate(-1px, 2px);
-    opacity: 0.7;
-  }
-}
-
+/* =========================================================
+   GLITCH BORDER BUTTON (PRZYCISKI) – NIE ZMIENIAMY animacji
+   ========================================================= */
 .glitch-border-button {
   position: relative;
   padding: 0.75rem 1.5rem;
@@ -398,7 +312,6 @@ html, body {
   overflow: visible;
   z-index: 0;
 }
-
 
 /* animowana fala/kreska dookoła ramki */
 .glitch-border-button::after {
@@ -422,13 +335,14 @@ html, body {
   );
 
   background-size: 200% 100%;
-
   animation: wave-loop 3s linear infinite;
+
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
+
   padding: 3px;
   box-sizing: border-box;
 }
@@ -450,15 +364,9 @@ html, body {
 }
 
 @keyframes wave-loop {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 200% 10%;
-  }
+  0% { background-position: 100% 0%; }
+  100% { background-position: 200% 10%; }
 }
-
-
 
 @media (max-width: 768px) {
   #about-button {
@@ -468,7 +376,6 @@ html, body {
     transform: translateX(-50%);
   }
 }
-
 
 /* Poprawka dla span underline w About */
 a[href="#about"] > span {
@@ -483,14 +390,53 @@ a[href="#about"] > span {
   transform: translateX(-50%) !important;
 }
 
-.hi-there {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700; /* gruba czcionka */
-  font-size: 3rem; /* możesz zmienić rozmiar */
-  color: #3b82f6; /* niebieski, możesz zmienić kolor */
-}
-
-
 a[href="#about"]:hover > span {
   width: 100% !important;
+}
+
+.hi-there {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #3b82f6;
+}
+
+/* =========================================================
+   ✅ TYLKO PROJECTS: kolory obwódek kółek (glitch-border)
+   ZMIENIASZ TU jak chcesz (np. róż/fiolet/krwista czerwień)
+   ========================================================= */
+#projects .glitch-border {
+  --gb-c1: #dc143c; /* crimson / krwista */
+  --gb-c2: #ff1493; /* deep pink / róż */
+  /* jeśli chcesz bardziej fioletowo zamiast różu:
+     --gb-c2: #a855f7;  / violet-500
+  */
+}
+
+/* =========================================================
+   ✅ TYLKO JEDEN PRZYCISK: CONTACT w Projects
+   W HTML dodaj mu klasę: contact-glow
+   Normal: zielony, Hover: żółty
+   (NIE rusza animacji – zostaje Twoje wave-loop)
+   ========================================================= */
+#projects .contact-glow::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #86efac 25%,  /* green-300 */
+    #22c55e 50%,  /* green-500 */
+    #86efac 75%,
+    transparent 100%
+  ) !important;
+}
+
+#projects .contact-glow:hover::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #fde68a 25%,  /* yellow-200 */
+    #facc15 50%,  /* yellow-400 */
+    #fde68a 75%,
+    transparent 100%
+  ) !important;
 }
