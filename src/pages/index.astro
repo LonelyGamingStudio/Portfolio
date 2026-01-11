@@ -35,10 +35,7 @@ import '../styles/global.css';
         transition: width 0.5s;
         transform: translateX(-50%);
       }
-
-      #about-button:hover span {
-        width: 100%;
-      }
+      #about-button:hover span { width: 100%; }
 
       @media (max-width: 768px) {
         #about-button {
@@ -49,46 +46,278 @@ import '../styles/global.css';
         }
       }
 
-      .glow-line {
-        filter: drop-shadow(0 0 8px #a78bfa);
-      }
+      .glow-line { filter: drop-shadow(0 0 8px #a78bfa); }
 
       /* Projects circles (subtle glow, safe) */
-      .project-circle {
-        box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.22);
+      .project-circle { box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.22); }
+      .project-circle:hover { box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.55), 0 0 26px rgba(34, 211, 238, 0.16); }
+
+      /* ===== CONTACT: kolorowanie szarego szlaczka w trakcie lotu ===== */
+      .contact-stage {
+        height: 520px;
+        max-height: 70vh;
+        min-height: 420px;
+        position: relative;
+
+        --flight-dur: 5.2s; /* jedno źródło prawdy */
       }
-      .project-circle:hover {
-        box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.55), 0 0 26px rgba(34, 211, 238, 0.16);
+
+      .contact-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        opacity: 0.95;
+      }
+
+      /* tor pomocniczy */
+      .path-guide {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.10);
+        stroke-width: 2;
+      }
+
+      /* kolorowany szlaczek (rysuje się podczas lotu) */
+      .path-color {
+        fill: none;
+        stroke: url(#trailGradient);
+        stroke-width: 4.4;
+        stroke-linecap: round;
+        filter: url(#neonGlow);
+        opacity: 0;
+      }
+      .path-color-r {
+        fill: none;
+        stroke: rgba(255, 60, 120, 0.55);
+        stroke-width: 3.2;
+        stroke-linecap: round;
+        filter: url(#neonGlow);
+        opacity: 0;
+      }
+      .path-color-g {
+        fill: none;
+        stroke: rgba(120, 255, 120, 0.45);
+        stroke-width: 3.0;
+        stroke-linecap: round;
+        filter: url(#neonGlow);
+        opacity: 0;
+      }
+      .path-color-b {
+        fill: none;
+        stroke: rgba(80, 160, 255, 0.45);
+        stroke-width: 3.0;
+        stroke-linecap: round;
+        filter: url(#neonGlow);
+        opacity: 0;
+      }
+
+      /* samolot */
+      #planeMotion { filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.65)); }
+      .plane-fill {
+        fill: rgba(0, 0, 0, 0.35);
+        stroke: rgba(34, 211, 238, 0.95);
+        stroke-width: 2;
+      }
+      .plane-stroke {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.85);
+        stroke-width: 1.4;
+        opacity: 0.9;
+      }
+
+      /* burst */
+      .burst { opacity: 0; transform-origin: center; }
+      .burst-ring, .burst-ring2 {
+        fill: none;
+        stroke: rgba(34, 211, 238, 0.9);
+        stroke-width: 2.2;
+      }
+      .burst-lines line {
+        stroke: rgba(255, 255, 255, 0.75);
+        stroke-width: 2;
+      }
+
+      /* panel wysuwany */
+      .contact-panel {
+        position: absolute;
+        left: 50%;
+        top: 58%;
+        transform: translate(-50%, -50%);
+        width: min(860px, 92vw);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* ===== PANEL: tylko animowana ramka (bez tła) + glitch/fala ===== */
+      .contact-panel-inner{
+        position: relative;
+        padding: 22px 18px;
+        border-radius: 18px;
+
+        /* ZERO tła */
+        background: transparent !important;
+        box-shadow: none !important;
+        filter: none !important;
+
+        transform: translateY(18px) scale(0.98);
+      }
+
+      /* animowana ramka (gradient "flow") */
+      .contact-panel-inner::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        border-radius: inherit;
+        padding: 2px; /* grubość ramki */
+        background: linear-gradient(120deg, #22d3ee, #3b82f6, #a855f7, #ec4899, #84cc16, #22d3ee);
+        background-size: 300% 300%;
+        animation: borderFlow 7.5s linear infinite;
+        pointer-events:none;
+
+        /* WYTNĲ środek żeby została tylko krawędź */
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+
+        /* neonowy delikatny glow na samej ramce */
+        filter: drop-shadow(0 0 10px rgba(34,211,238,0.35)) drop-shadow(0 0 22px rgba(168,85,247,0.18));
+        opacity: .95;
+      }
+
+      /* glitch na krawędzi (subtelny) */
+      .contact-panel-inner::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        border-radius: inherit;
+        padding: 2px;
+        pointer-events:none;
+
+        background: linear-gradient(90deg,
+          rgba(34,211,238,0.0) 0%,
+          rgba(34,211,238,0.9) 18%,
+          rgba(236,72,153,0.9) 52%,
+          rgba(132,204,22,0.85) 80%,
+          rgba(34,211,238,0.0) 100%
+        );
+
+        -webkit-mask:
+          linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+
+        opacity: 0;
+        animation: borderGlitch 3.2s steps(2,end) infinite;
+        mix-blend-mode: screen;
+      }
+
+      @keyframes borderFlow{
+        0%{ background-position: 0% 50%; }
+        50%{ background-position: 100% 50%; }
+        100%{ background-position: 0% 50%; }
+      }
+
+      @keyframes borderGlitch{
+        0%   { opacity: 0; transform: translate(0,0); }
+        6%   { opacity: .55; transform: translate(1px,-1px); }
+        10%  { opacity: 0; transform: translate(0,0); }
+        38%  { opacity: 0; transform: translate(0,0); }
+        44%  { opacity: .45; transform: translate(-1px,1px); }
+        48%  { opacity: 0; transform: translate(0,0); }
+        78%  { opacity: 0; transform: translate(0,0); }
+        84%  { opacity: .35; transform: translate(1px,0); }
+        88%  { opacity: 0; transform: translate(0,0); }
+        100% { opacity: 0; transform: translate(0,0); }
+      }
+
+      /* większe "Let’s talk" + "Need a quick response" */
+      .contact-kicker{
+        font-size: 1.05rem;
+        letter-spacing: .2px;
+      }
+      .contact-urgent{
+        font-size: 1.05rem;
+        letter-spacing: .15px;
+      }
+
+      /* większe emoji w przyciskach */
+      .contact-btn-emoji{
+        display:inline-block;
+        font-size: 1.45em;
+        line-height: 1;
+        transform: translateY(2px);
+        margin-right: .42rem;
+      }
+
+      /* PRZYCISKI W PANELU: bez tła (same ramki) nawet jeśli glitch-border-button ma background */
+      .contact-panel-inner .glitch-border-button{
+        background: transparent !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        background-image: none !important;
+        background-color: transparent !important;
+      }
+
+      .contact-panel-inner .glitch-border-button:hover{
+        background: transparent !important;
+        filter: drop-shadow(0 0 10px rgba(34,211,238,0.18));
+      }
+
+      .contact-stage.is-reveal .contact-panel {
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity 0.4s ease;
+      }
+      .contact-stage.is-reveal .contact-panel-inner {
+        transform: translateY(0) scale(1);
+        transition: transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .contact-stage.is-burst #burst { opacity: 1; }
+      .contact-stage.is-burst .burst-ring { animation: ring1 0.55s ease-out forwards; }
+      .contact-stage.is-burst .burst-ring2 { animation: ring2 0.65s ease-out forwards; }
+
+      @keyframes ring1 { 0% { r: 6; opacity: 1; } 100% { r: 52; opacity: 0; } }
+      @keyframes ring2 { 0% { r: 6; opacity: 0.9; } 100% { r: 86; opacity: 0; } }
+
+      @media (max-width: 640px) { .contact-stage { height: 520px; } }
+
+      /* FULL WIDTH */
+      .contact-stage {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
       }
     </style>
   </head>
 
   <body class="relative font-mono text-black dark:text-lime-400 transition-colors duration-700 ease-in-out bg-white dark:bg-black overflow-x-hidden">
 
-<!-- MENU z About -->
-<div
-  class="fixed top-0 right-0 z-50 bg-white/5 text-white
-         flex items-start justify-start px-6 gap-6
-         h-[5.4rem] w-[40vw] min-w-[280px] max-w-[520px] rounded-bl-3xl"
->
-  <a href="#about" class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group">
-    About
-    <span class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"></span>
-  </a>
+    <!-- MENU -->
+    <div
+      class="fixed top-0 right-0 z-50 bg-white/5 text-white
+            flex items-start justify-start px-6 gap-6
+            h-[5.4rem] w-[40vw] min-w-[280px] max-w-[520px] rounded-bl-3xl"
+    >
+      <a href="#about" class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group">
+        About
+        <span class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"></span>
+      </a>
 
-  <a href="#projects" class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group">
-    Projects
-    <span class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"></span>
-  </a>
+      <a href="#projects" class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group">
+        Projects
+        <span class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-purple-400 via-pink-500 to-purple-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"></span>
+      </a>
 
-  <a href="#contact" class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group">
-    Contact
-    <span class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-lime-400 via-green-500 to-lime-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"></span>
-  </a>
-</div>
-
-
-
+      <a href="#contact" class="mt-4 text-white px-5 py-3 rounded-md font-semibold text-xl relative group">
+        Contact
+        <span class="absolute bottom-0 left-1/2 h-[2px] w-0 bg-gradient-to-r from-lime-400 via-green-500 to-lime-500 group-hover:w-full transition-all duration-500 transform -translate-x-1/2"></span>
+      </a>
+    </div>
 
     <div id="custom-cursor"></div>
 
@@ -99,56 +328,31 @@ import '../styles/global.css';
       <div class="absolute inset-0 bg-black bg-opacity-40 -z-5"></div>
 
       <div class="z-10 animate-fadein leading-none select-none">
-        <h1 id="dev" class="anton glitch-text text-white text-4xl sm:text-6xl md:text-[10vw]">
-          DEVELOPER
-        </h1>
-        <div id="amp" class="glitch-text text-white text-3xl sm:text-5xl mt-1 mb-1">
-          &
-        </div>
-        <h1 id="it" class="anton glitch-text text-white text-4xl sm:text-6xl md:text-[10vw]">
-          IT TECHNICIAN
-        </h1>
+        <h1 id="dev" class="anton glitch-text text-white text-4xl sm:text-6xl md:text-[10vw]">DEVELOPER</h1>
+        <div id="amp" class="glitch-text text-white text-3xl sm:text-5xl mt-1 mb-1">&</div>
+        <h1 id="it" class="anton glitch-text text-white text-4xl sm:text-6xl md:text-[10vw]">IT TECHNICIAN</h1>
       </div>
 
       <div id="name-banner" class="fixed top-11 left-4 sm:left-12 z-50 select-none" style="transform: translateX(0px);">
-        <h1 class="anton glitch-text text-white text-xl sm:text-5xl md:text-7xl">
-          MICHAŁ PAWLAK
-        </h1>
+        <h1 class="anton glitch-text text-white text-xl sm:text-5xl md:text-7xl">MICHAŁ PAWLAK</h1>
       </div>
     </header>
 
-    <!-- SEKCJA ABOUT -->
+    <!-- ABOUT -->
     <section id="about" class="h-screen flex items-center bg-white dark:bg-black transition-colors relative">
       <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
-        <!-- FOTO + BUTTONY -->
+
         <div class="flex flex-col items-center md:items-start w-full md:w-1/3">
           <div class="glitch-border w-80 h-80 rounded-full overflow-hidden relative" data-aos="fade-right" data-aos-delay="100">
-            <img
-              src="/img/michal.jpeg"
-              alt="Michał Pawlak"
-              class="w-full h-full object-cover rounded-full"
-            />
+            <img src="/img/michal.jpeg" alt="Michał Pawlak" class="w-full h-full object-cover rounded-full" />
           </div>
 
           <div class="flex gap-4 ml-6 mt-10" data-aos="fade-up" data-aos-delay="100">
-            <a
-              href="/files/michal-pawlak-resume.pdf"
-              target="_blank"
-              class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-400"
-            >
-              RESUME
-            </a>
-            <a
-              href="https://www.linkedin.com/in/michał-pawlak-480297264/"
-              target="_blank"
-              class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
-            >
-              LINKEDIN
-            </a>
+            <a href="/files/michal-pawlak-resume.pdf" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RESUME</a>
+            <a href="https://www.linkedin.com/in/michał-pawlak-480297264/" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">LINKEDIN</a>
           </div>
         </div>
 
-        <!-- OPIS -->
         <div class="w-full md:w-2/3 text-left" data-aos="fade-left" data-aos-delay="100">
           <h2 class="text-5xl font-bold mb-4 font-montserrat inter-font text-black-300 dark:text-cyan-300">Hi there!</h2>
           <ul class="text-xl leading-relaxed text-black dark:text-white inter-font list-inside space-y-3">
@@ -161,218 +365,206 @@ import '../styles/global.css';
           </ul>
         </div>
 
-        <!-- PRZYCISK DALEJ -->
         <div class="absolute bottom-20 left-1/2 -translate-x-1/2">
-          <a href="#projects" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">
-            ↓ PROJECTS
-          </a>
+          <a href="#projects" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">↓ PROJECTS</a>
         </div>
       </div>
     </section>
 
-    <!-- SEKCJA PROJEKTY -->
+    <!-- PROJECTS -->
     <section id="projects" data-aos="fade-left" class="min-h-screen transition-colors relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
 
-        <!-- NAPIS PROJECTS: na środku, na górze ~20px -->
         <div class="absolute top-12 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none">
-          <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl">
-            PROJECTS
-          </h1>
+          <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl">PROJECTS</h1>
         </div>
 
-        <!-- ZAWARTOŚĆ: wyśrodkowana w pionie (kółka + przyciski) -->
         <div class="min-h-screen flex items-center">
           <div class="w-full">
-
-            <!-- UWAGA: gap-120 nie istnieje w Tailwind -> robił się brak odstępu i kółka nachodziły -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-28 xl:gap-32 items-start justify-items-center">
 
-              <!-- WEBSITES -->
               <div class="flex flex-col items-center text-center">
-                <!-- NOWY NAPIS NAD KÓŁKIEM (glitch jak PROJECTS) -->
-                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">
-                  WEBSITES
-                </h2>
-
-                <!-- ZMNIEJSZONE minimalnie: było md: 28rem, jest md: 26rem -->
+                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">WEBSITES</h2>
                 <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
-                  <!-- TODO: podmień na swoje zdjęcie -->
                   <img src="/img/projects-websites.jpg" alt="Websites" class="w-full h-full object-cover" />
-
-                  <!-- NAPIS W KÓŁKU (USUNIĘTY) -->
                 </div>
-
                 <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                  <a
-                    href="https://www.rimet.pl"
-                    target="_blank"
-                    rel="noopener"
-                    class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-500"
-                  >
-                    RIMET
-                  </a>
-                  <a
-                    href="https://devblog.michalpawlak.works"
-                    target="_blank"
-                    rel="noopener"
-                    class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-500"
-                  >
-                    DEVBLOG
-                  </a>
-                  <a
-                    href="https://kawa.michalpawlak.works"
-                    target="_blank"
-                    rel="noopener"
-                    class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-500"
-                  >
-                    KAWA
-                  </a>
+                  <a href="https://www.rimet.pl" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RIMET</a>
+                  <a href="https://devblog.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DEVBLOG</a>
+                  <a href="https://kawa.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">KAWA</a>
                 </div>
               </div>
 
-              <!-- GAMES -->
               <div class="flex flex-col items-center text-center">
-                <!-- NOWY NAPIS NAD KÓŁKIEM (glitch jak PROJECTS) -->
-                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">
-                  GAMES
-                </h2>
-
+                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GAMES</h2>
                 <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
-                  <!-- TODO: podmień na swoje zdjęcie -->
                   <img src="/img/projects-games.jpg" alt="Games" class="w-full h-full object-cover" />
-
-                  <!-- NAPIS W KÓŁKU (USUNIĘTY) -->
                 </div>
-
                 <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                  <a
-                    href="https://www.youtube.com/watch?v=DuAW_1QFnbo"
-                    target="_blank"
-                    rel="noopener"
-                    class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-500"
-                  >
-                    YOUTUBE
-                  </a>
-                  <a
-                    href="PASTE_GOOGLE_DRIVE_LINK_HERE"
-                    target="_blank"
-                    rel="noopener"
-                    class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-500"
-                  >
-                    DRIVE
-                  </a>
+                  <a href="https://www.youtube.com/watch?v=DuAW_1QFnbo" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">YOUTUBE</a>
+                  <a href="PASTE_GOOGLE_DRIVE_LINK_HERE" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
                 </div>
               </div>
 
-              <!-- GRAPHICS -->
               <div class="flex flex-col items-center text-center">
-                <!-- NOWY NAPIS NAD KÓŁKIEM (glitch jak PROJECTS) -->
-                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">
-                  GRAPHICS
-                </h2>
-
+                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GRAPHICS</h2>
                 <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
-                  <!-- TODO: podmień na swoje zdjęcie -->
                   <img src="/img/projects-graphics.jpg" alt="Graphics" class="w-full h-full object-cover" />
-
-                  <!-- NAPIS W KÓŁKU (USUNIĘTY) -->
                 </div>
-
                 <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                  <a
-                    href="PASTE_GOOGLE_DRIVE_LINK_HERE"
-                    target="_blank"
-                    rel="noopener"
-                    class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-500"
-                  >
-                    DRIVE
-                  </a>
+                  <a href="PASTE_GOOGLE_DRIVE_LINK_HERE" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
                 </div>
               </div>
 
             </div>
-
           </div>
         </div>
 
-        <!-- PRZYCISK DALEJ KONTAKT -->
         <div class="absolute bottom-20 left-1/2 -translate-x-1/2">
-          <a href="#contact" class="w-32 py-3 inter-font rounded glitch-border-button contact-glow text-center text-black dark:text-red-500">
-            ↓ CONTACT
-          </a>
+          <a href="#contact" class="w-32 py-3 inter-font rounded glitch-border-button contact-glow text-center text-black dark:text-cyan-300">↓ CONTACT</a>
         </div>
       </div>
     </section>
 
-<!-- SEKCJA KONTAKT -->
-<section id="contact" data-aos="zoom-in-up" class="min-h-screen flex items-center transition-colors relative">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 w-full text-center">
+    <!-- CONTACT -->
+    <section id="contact" class="min-h-screen transition-colors relative overflow-hidden">
+      <div class="absolute top-32 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none">
+        <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl select-none">CONTACT</h1>
+      </div>
 
-    <!-- NAPIS CONTACT: jak PROJECTS -->
-    <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl select-none pointer-events-none">
-      CONTACT
-    </h1>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
+        <div class="contact-stage mt-28 sm:mt-32 relative">
 
-    <!-- krótkie zdanie (subtelne) -->
-    <p class="mt-5 text-white/80 inter-font text-base sm:text-lg">
-      Napisz do mnie — odpowiadam szybko i konkretnie.
-    </p>
+          <svg class="contact-svg" viewBox="-200 0 1800 420" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
 
-    <!-- MAIL: duży, wyraźny, w stylu strony -->
-    <div class="mt-10">
-      <a
-        href="mailto:michal.pawlak.praca@gmail.com"
-        class="glitch-text text-lime-300 hover:text-lime-200 transition inter-font font-semibold text-lg sm:text-2xl md:text-3xl underline decoration-white/20 underline-offset-8"
-      >
-        michal.pawlak.praca@gmail.com
-      </a>
-    </div>
+              <linearGradient id="trailGradient" x1="-200" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%"   stop-color="#22d3ee"/>
+                <stop offset="18%"  stop-color="#3b82f6"/>
+                <stop offset="36%"  stop-color="#a855f7"/>
+                <stop offset="54%"  stop-color="#ec4899"/>
+                <stop offset="72%"  stop-color="#f97316"/>
+                <stop offset="90%"  stop-color="#84cc16"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
 
-    <!-- PRZYCISKI: w identycznym stylu jak reszta -->
-    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <a
-        href="mailto:michal.pawlak.praca@gmail.com?subject=Wsp%C3%B3%C5%82praca%20-%20Zapytanie&body=Cze%C5%9B%C4%87%20Micha%C5%82,%0A%0AChc%C4%99%20pogada%C4%87%20o%20..."
-        class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-900"
-      >
-        ✉️ MAIL
-      </a>
+              <path id="flightPath" d="M -200 260
+                C 150 60, 380 460, 620 220
+                S 980 40, 1200 260
+                S 1450 460, 1540 230" />
+            </defs>
 
-      <a
-        href="/files/michal-pawlak-resume.pdf"
-        target="_blank"
-        class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-900"
-      >
-        📄 CV
-      </a>
+            <!-- szary guide -->
+            <use href="#flightPath" class="path-guide"/>
 
-      <a
-        href="https://www.linkedin.com/in/michał-pawlak-480297264/"
-        target="_blank"
-        class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-900"
-      >
-        🔗 LINKEDIN
-      </a>
-    </div>
+            <!-- KOLOROWANIE ścieżki -->
+            <use id="colorMain" href="#flightPath" class="path-color"/>
+            <use id="colorR" href="#flightPath" class="path-color-r" transform="translate(1 -1)"/>
+            <use id="colorG" href="#flightPath" class="path-color-g" transform="translate(-1 1)"/>
+            <use id="colorB" href="#flightPath" class="path-color-b" transform="translate(0 1)"/>
 
-    <!-- mini dopisek (jak stopka, ale w sekcji) -->
-    <p class="mt-10 text-white/60 inter-font text-sm sm:text-base">
-      Jeśli temat jest pilny, dopisz w tytule: <span class="text-white/90 font-semibold">[PILNE]</span>
-    </p>
+            <!-- burst -->
+            <g id="burst" class="burst" transform="translate(1540 230)">
+              <circle class="burst-ring" r="6"></circle>
+              <circle class="burst-ring2" r="6"></circle>
+              <g class="burst-lines" filter="url(#neonGlow)">
+                <line x1="-18" y1="0" x2="-44" y2="0"></line>
+                <line x1="18" y1="0" x2="44" y2="0"></line>
+                <line x1="0" y1="-18" x2="0" y2="-44"></line>
+                <line x1="0" y1="18" x2="0" y2="44"></line>
+                <line x1="-13" y1="-13" x2="-32" y2="-32"></line>
+                <line x1="13" y1="13" x2="32" y2="32"></line>
+                <line x1="-13" y1="13" x2="-32" y2="32"></line>
+                <line x1="13" y1="-13" x2="32" y2="-32"></line>
+              </g>
+            </g>
 
-    <!-- opcjonalnie: przycisk powrotu (ten sam styl) -->
-    <div class="mt-10">
-      <a
-        href="#about"
-        class="w-44 inline-block py-3 inter-font rounded glitch-border-button text-center text-black dark:text-red-900"
-      >
-        ↑ BACK
-      </a>
-    </div>
+            <!-- PLANE -->
+            <g id="planeMotion" opacity="0">
+              <g id="planeWobble" transform="translate(-33,-33)">
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  additive="sum"
+                  dur="0.95s"
+                  repeatCount="indefinite"
+                  values="-6 33 33; 6 33 33; -6 33 33"
+                  begin="planeMotionAnim.begin+0.15s"
+                />
+                <svg x="0" y="0" width="66" height="66" viewBox="0 0 64 64">
+                  <path d="M4 30 L60 6 L40 58 L30 38 L4 30 Z" class="plane-fill"/>
+                  <path d="M4 30 L60 6 L30 38" class="plane-stroke"/>
+                  <path d="M30 38 L40 58" class="plane-stroke"/>
+                </svg>
+              </g>
 
-  </div>
-</section>
+              <animateMotion
+                id="planeMotionAnim"
+                dur="5.2s"
+                begin="indefinite"
+                fill="freeze"
+                rotate="auto"
+                calcMode="linear"
+                keyTimes="0;1"
+              >
+                <mpath href="#flightPath"></mpath>
+              </animateMotion>
+            </g>
+          </svg>
 
+          <!-- panel -->
+          <div id="contactPanel" class="contact-panel">
+            <div class="contact-panel-inner text-center">
+              <div class="text-white/70 inter-font contact-kicker mb-2">Let’s talk:</div>
+
+              <a
+                href="mailto:michal.pawlak.praca@gmail.com"
+                class="glitch-text text-lime-300 hover:text-lime-200 transition inter-font font-semibold text-lg sm:text-2xl md:text-3xl"
+              >
+                michal.pawlak.praca@gmail.com
+              </a>
+
+              <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="mailto:michal.pawlak.praca@gmail.com?subject=Wsp%C3%B3%C5%82praca%20-%20Zapytanie&body=Cze%C5%9B%C4%87%20Micha%C5%82,%0A%0AChc%C4%99%20pogada%C4%87%20o%20..."
+                  class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                >
+                  <span class="contact-btn-emoji">📧</span>MAIL
+                </a>
+
+                <a
+                  href="/files/michal-pawlak-resume.pdf"
+                  target="_blank"
+                  class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                >
+                  <span class="contact-btn-emoji">📝</span>CV
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/michał-pawlak-480297264/"
+                  target="_blank"
+                  class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                >
+                  <span class="contact-btn-emoji">🔗</span>LINKEDIN
+                </a>
+              </div>
+
+              <div class="mt-7 text-white/60 inter-font contact-urgent">
+                Need a quick response? Add: <span class="text-white/90 font-semibold">[PILNE]</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
 
     <footer class="text-center mt-10 py-6 px-4 text-sm text-white dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
       MICHAŁ PAWLAK 2026 | ALL RIGHTS RESERVED ©
@@ -390,8 +582,6 @@ import '../styles/global.css';
     <script src="https://unpkg.com/lottie-web@5.10.2/build/player/lottie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" onload="AOS.init({ once: false, disable: 'mobile' })"></script>
     <script is:inline src="/scripts/themeToggle.js"></script>
-    <!-- Duplikat był wklejony 2x, zostawiam komentarz żeby nic nie "zniknęło" -->
-    <!-- <script is:inline src="/scripts/themeToggle.js"></script> -->
     <script is:inline src="/scripts/cursor.js"></script>
 
     <!-- Scroll Animation Script -->
@@ -434,6 +624,109 @@ import '../styles/global.css';
         });
 
         animate();
+      });
+    </script>
+
+    <!-- CONTACT SCRIPT: start + długość ścieżki + kolorowanie w sync z samolotem -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const section = document.getElementById('contact');
+        const stage = document.querySelector('.contact-stage');
+        const flightPath = document.getElementById('flightPath');
+
+        const planeAnim = document.getElementById('planeMotionAnim');
+        const planeGroup = document.getElementById('planeMotion');
+
+        const colorLayers = [
+          document.getElementById('colorMain'),
+          document.getElementById('colorR'),
+          document.getElementById('colorG'),
+          document.getElementById('colorB'),
+        ];
+
+        if (!section || !stage || !flightPath || !planeAnim || !planeGroup) return;
+
+        // dur z CSS
+        const dur = getComputedStyle(stage).getPropertyValue('--flight-dur').trim() || '5.2s';
+        planeAnim.setAttribute('dur', dur);
+
+        // długość path
+        const len = flightPath.getTotalLength();
+
+        // ustaw dash na warstwach
+        colorLayers.forEach((el) => {
+          if (!el) return;
+          el.setAttribute('stroke-dasharray', String(len));
+          el.setAttribute('stroke-dashoffset', String(len));
+          el.style.opacity = '0';
+        });
+
+        // dodaj animacje SMIL do <use> (sync z begin samolotu)
+        function ensureAnim(useEl, idBase, opacityTo) {
+          if (!useEl) return;
+
+          // wyczyść stare (hot-reload)
+          useEl.querySelectorAll('animate').forEach(a => a.remove());
+
+          const a1 = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+          a1.setAttribute('id', idBase + 'Draw');
+          a1.setAttribute('attributeName', 'stroke-dashoffset');
+          a1.setAttribute('begin', 'planeMotionAnim.begin');
+          a1.setAttribute('dur', dur);
+          a1.setAttribute('from', String(len));
+          a1.setAttribute('to', '0');
+          a1.setAttribute('fill', 'freeze');
+
+          const aOpIn = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+          aOpIn.setAttribute('attributeName', 'opacity');
+          aOpIn.setAttribute('begin', 'planeMotionAnim.begin');
+          aOpIn.setAttribute('dur', '0.18s');
+          aOpIn.setAttribute('from', '0');
+          aOpIn.setAttribute('to', String(opacityTo));
+          aOpIn.setAttribute('fill', 'freeze');
+
+          const aOpOut = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+          aOpOut.setAttribute('attributeName', 'opacity');
+          aOpOut.setAttribute('begin', 'planeMotionAnim.end+0.10s');
+          aOpOut.setAttribute('dur', '0.65s');
+          aOpOut.setAttribute('from', String(opacityTo));
+          aOpOut.setAttribute('to', '0');
+          aOpOut.setAttribute('fill', 'freeze');
+
+          useEl.appendChild(a1);
+          useEl.appendChild(aOpIn);
+          useEl.appendChild(aOpOut);
+        }
+
+        ensureAnim(colorLayers[0], 'main', 0.98);
+        ensureAnim(colorLayers[1], 'r', 0.75);
+        ensureAnim(colorLayers[2], 'g', 0.65);
+        ensureAnim(colorLayers[3], 'b', 0.65);
+
+        const sec = parseFloat(dur.replace('s','')) || 5.2;
+        const ms = sec * 1000;
+
+        let played = false;
+
+        const run = () => {
+          if (played) return;
+          played = true;
+
+          planeGroup.setAttribute('opacity', '1');
+
+          // odpal samolot (odpali też animacje szlaczka)
+          if (planeAnim.beginElement) planeAnim.beginElement();
+
+          // burst + panel near end
+          setTimeout(() => stage.classList.add('is-burst'), ms);
+          setTimeout(() => stage.classList.add('is-reveal'), ms + 120);
+        };
+
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) run();
+        }, { threshold: 0.35 });
+
+        io.observe(section);
       });
     </script>
   </body>
