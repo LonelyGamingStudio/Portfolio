@@ -52,13 +52,51 @@ import '../styles/global.css';
       .project-circle { box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.22); }
       .project-circle:hover { box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.55), 0 0 26px rgba(34, 211, 238, 0.16); }
 
+      /* ===== VIDEO TŁO DLA SEKCJI (ABOUT/PROJECTS/CONTACT) ===== */
+      .section-video-wrap{
+        position:absolute;
+        inset:0;
+        z-index:-10;
+        overflow:hidden;
+      }
+      .section-video{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+      .section-overlay{
+        position:absolute;
+        inset:0;
+        background: rgba(0,0,0,.42);
+        z-index:1;
+      }
+      .section-content{
+        position:relative;
+        z-index:10;
+      }
+
+      /* delikatnie lżejszy overlay tylko w about (czytelniej) */
+      #about .section-overlay { background: rgba(0,0,0,.30); }
+
+      /* ===== ABOUT: CTA na dole (naprawdę względem całej sekcji) ===== */
+      #about { --about-cta-y: -44px; } /* <-- TU REGULUJESZ: np. -40px / 40px */
+      .about-bottom-cta{
+        position: absolute;
+        left: 50%;
+        bottom: 2.25rem; /* stała baza od dołu */
+        transform: translateX(-50%) translateY(var(--about-cta-y, 0px));
+        z-index: 20;
+        pointer-events: auto;
+      }
+
       /* ===== CONTACT: kolorowanie szarego szlaczka w trakcie lotu ===== */
       .contact-stage {
         height: 520px;
         max-height: 70vh;
         min-height: 420px;
         position: relative;
-
         --flight-dur: 5.2s; /* jedno źródło prawdy */
       }
 
@@ -71,14 +109,12 @@ import '../styles/global.css';
         opacity: 0.95;
       }
 
-      /* tor pomocniczy */
       .path-guide {
         fill: none;
         stroke: rgba(255, 255, 255, 0.10);
         stroke-width: 2;
       }
 
-      /* kolorowany szlaczek (rysuje się podczas lotu) */
       .path-color {
         fill: none;
         stroke: url(#trailGradient);
@@ -112,7 +148,6 @@ import '../styles/global.css';
         opacity: 0;
       }
 
-      /* samolot */
       #planeMotion { filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.65)); }
       .plane-fill {
         fill: rgba(0, 0, 0, 0.35);
@@ -126,7 +161,6 @@ import '../styles/global.css';
         opacity: 0.9;
       }
 
-      /* burst */
       .burst { opacity: 0; transform-origin: center; }
       .burst-ring, .burst-ring2 {
         fill: none;
@@ -138,7 +172,6 @@ import '../styles/global.css';
         stroke-width: 2;
       }
 
-      /* panel wysuwany */
       .contact-panel {
         position: absolute;
         left: 50%;
@@ -154,40 +187,33 @@ import '../styles/global.css';
         position: relative;
         padding: 22px 18px;
         border-radius: 18px;
-
-        /* ZERO tła */
         background: transparent !important;
         box-shadow: none !important;
         filter: none !important;
-
         transform: translateY(18px) scale(0.98);
       }
 
-      /* animowana ramka (gradient "flow") */
       .contact-panel-inner::before{
         content:"";
         position:absolute;
         inset:0;
         border-radius: inherit;
-        padding: 2px; /* grubość ramki */
+        padding: 2px;
         background: linear-gradient(120deg, #22d3ee, #3b82f6, #a855f7, #ec4899, #84cc16, #22d3ee);
         background-size: 300% 300%;
         animation: borderFlow 7.5s linear infinite;
         pointer-events:none;
 
-        /* WYTNĲ środek żeby została tylko krawędź */
         -webkit-mask:
           linear-gradient(#000 0 0) content-box,
           linear-gradient(#000 0 0);
         -webkit-mask-composite: xor;
                 mask-composite: exclude;
 
-        /* neonowy delikatny glow na samej ramce */
         filter: drop-shadow(0 0 10px rgba(34,211,238,0.35)) drop-shadow(0 0 22px rgba(168,85,247,0.18));
         opacity: .95;
       }
 
-      /* glitch na krawędzi (subtelny) */
       .contact-panel-inner::after{
         content:"";
         position:absolute;
@@ -234,26 +260,17 @@ import '../styles/global.css';
         100% { opacity: 0; transform: translate(0,0); }
       }
 
-      /* większe "Let’s talk" + "Need a quick response" */
-      .contact-kicker{
-        font-size: 1.05rem;
-        letter-spacing: .2px;
-      }
-      .contact-urgent{
-        font-size: 1.05rem;
-        letter-spacing: .15px;
-      }
+      .contact-kicker{ font-size: 1.05rem; letter-spacing: .2px; }
+      .contact-urgent{ font-size: 1.05rem; letter-spacing: .15px; }
 
-      /* większe emoji w przyciskach */
       .contact-btn-emoji{
         display:inline-block;
-        font-size: 1.45em;
+        font-size: 1.65em;
         line-height: 1;
         transform: translateY(2px);
         margin-right: .42rem;
       }
 
-      /* PRZYCISKI W PANELU: bez tła (same ramki) nawet jeśli glitch-border-button ma background */
       .contact-panel-inner .glitch-border-button{
         background: transparent !important;
         box-shadow: none !important;
@@ -286,7 +303,6 @@ import '../styles/global.css';
 
       @media (max-width: 640px) { .contact-stage { height: 520px; } }
 
-      /* FULL WIDTH */
       .contact-stage {
         width: 100vw;
         margin-left: calc(50% - 50vw);
@@ -321,6 +337,7 @@ import '../styles/global.css';
 
     <div id="custom-cursor"></div>
 
+    <!-- HERO -->
     <header class="relative h-screen overflow-hidden flex flex-col items-center justify-center text-center px-4 sm:px-6">
       <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover -z-10">
         <source src="/video/layout4k.mp4" type="video/mp4" />
@@ -338,230 +355,257 @@ import '../styles/global.css';
       </div>
     </header>
 
-    <!-- ABOUT -->
-    <section id="about" class="h-screen flex items-center bg-white dark:bg-black transition-colors relative">
-      <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
-
-        <div class="flex flex-col items-center md:items-start w-full md:w-1/3">
-          <div class="glitch-border w-80 h-80 rounded-full overflow-hidden relative" data-aos="fade-right" data-aos-delay="100">
-            <img src="/img/michal.jpeg" alt="Michał Pawlak" class="w-full h-full object-cover rounded-full" />
-          </div>
-
-          <div class="flex gap-4 ml-6 mt-10" data-aos="fade-up" data-aos-delay="100">
-            <a href="/files/michal-pawlak-resume.pdf" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RESUME</a>
-            <a href="https://www.linkedin.com/in/michał-pawlak-480297264/" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">LINKEDIN</a>
-          </div>
-        </div>
-
-        <div class="w-full md:w-2/3 text-left" data-aos="fade-left" data-aos-delay="100">
-          <h2 class="text-5xl font-bold mb-4 font-montserrat inter-font text-black-300 dark:text-cyan-300">Hi there!</h2>
-          <ul class="text-xl leading-relaxed text-black dark:text-white inter-font list-inside space-y-3">
-            <li>💻 Over 6 years creating games and apps for Android, iOS, and Windows (my true passion)</li>
-            <li>🌐 4+ years IT experience, including modern website development</li>
-            <li>⚡ 3 years as an electrician, plus 1 year independently designing and building EV charging stations</li>
-            <li>🔧 Hobbyist programmer creating advanced ESP32 microcontroller projects</li>
-            <li>🚀 Persistent and driven, always pushing to deliver outstanding results</li>
-            <li>🚚 Licensed professional driver (C+E) with extensive experience in VIP transportation and freight logistics, showcasing exceptional responsibility, punctuality, and commitment</li>
-          </ul>
-        </div>
-
-        <div class="absolute bottom-20 left-1/2 -translate-x-1/2">
-          <a href="#projects" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">↓ PROJECTS</a>
-        </div>
+    <!-- ABOUT (VIDEO: about2k) -->
+    <section id="about" class="min-h-screen transition-colors relative overflow-hidden">
+      <!-- VIDEO TŁO -->
+      <div class="section-video-wrap" aria-hidden="true">
+        <video autoplay muted loop playsinline class="section-video">
+          <source src="/video/about2k.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
       </div>
-    </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" data-aos="fade-left" class="min-h-screen transition-colors relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      <!-- CONTENT (pełna wysokość + relative dla CTA) -->
+      <div class="section-content min-h-screen flex items-center relative">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
 
-        <div class="absolute top-12 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none">
-          <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl">PROJECTS</h1>
-        </div>
+          <div class="flex flex-col items-center md:items-start w-full md:w-1/3">
+            <div class="glitch-border w-80 h-80 rounded-full overflow-hidden relative" data-aos="fade-right" data-aos-delay="100">
+              <img src="/img/michal.jpeg" alt="Michał Pawlak" class="w-full h-full object-cover rounded-full" />
+            </div>
 
-        <div class="min-h-screen flex items-center">
-          <div class="w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-28 xl:gap-32 items-start justify-items-center">
-
-              <div class="flex flex-col items-center text-center">
-                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">WEBSITES</h2>
-                <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
-                  <img src="/img/projects-websites.jpg" alt="Websites" class="w-full h-full object-cover" />
-                </div>
-                <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                  <a href="https://www.rimet.pl" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RIMET</a>
-                  <a href="https://devblog.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DEVBLOG</a>
-                  <a href="https://kawa.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">KAWA</a>
-                </div>
-              </div>
-
-              <div class="flex flex-col items-center text-center">
-                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GAMES</h2>
-                <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
-                  <img src="/img/projects-games.jpg" alt="Games" class="w-full h-full object-cover" />
-                </div>
-                <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                  <a href="https://www.youtube.com/watch?v=DuAW_1QFnbo" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">YOUTUBE</a>
-                  <a href="PASTE_GOOGLE_DRIVE_LINK_HERE" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
-                </div>
-              </div>
-
-              <div class="flex flex-col items-center text-center">
-                <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GRAPHICS</h2>
-                <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
-                  <img src="/img/projects-graphics.jpg" alt="Graphics" class="w-full h-full object-cover" />
-                </div>
-                <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                  <a href="PASTE_GOOGLE_DRIVE_LINK_HERE" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
-                </div>
-              </div>
-
+            <div class="flex gap-4 ml-6 mt-10" data-aos="fade-up" data-aos-delay="100">
+              <a href="/files/michal-pawlak-resume.pdf" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RESUME</a>
+              <a href="https://www.linkedin.com/in/michał-pawlak-480297264/" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">LINKEDIN</a>
             </div>
           </div>
+
+          <div class="w-full md:w-2/3 text-left" data-aos="fade-left" data-aos-delay="100">
+            <h2 class="text-5xl font-bold mb-4 font-montserrat inter-font text-black-300 dark:text-cyan-300">Hi there!</h2>
+            <ul class="text-xl leading-relaxed text-black dark:text-white inter-font list-inside space-y-3">
+              <li>💻 Over 6 years creating games and apps for Android, iOS, and Windows (my true passion)</li>
+              <li>🌐 4+ years IT experience, including modern website development</li>
+              <li>⚡ 3 years as an electrician, plus 1 year independently designing and building EV charging stations</li>
+              <li>🔧 Hobbyist programmer creating advanced ESP32 microcontroller projects</li>
+              <li>🚀 Persistent and driven, always pushing to deliver outstanding results</li>
+              <li>🚚 Licensed professional driver (C+E) with extensive experience in VIP transportation and freight logistics, showcasing exceptional responsibility, punctuality, and commitment</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="absolute bottom-20 left-1/2 -translate-x-1/2">
-          <a href="#contact" class="w-32 py-3 inter-font rounded glitch-border-button contact-glow text-center text-black dark:text-cyan-300">↓ CONTACT</a>
+        <!-- CTA: zawsze przy dole sekcji + regulacja przez --about-cta-y -->
+        <div class="about-bottom-cta">
+          <a href="#projects" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">
+            ↓ PROJECTS
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
+    <!-- PROJECTS (VIDEO: projects2k) -->
+    <section id="projects" data-aos="fade-left" class="min-h-screen transition-colors relative overflow-hidden">
+      <div class="section-video-wrap" aria-hidden="true">
+        <video autoplay muted loop playsinline class="section-video">
+          <source src="/video/projects2k.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
+      </div>
+
+      <div class="section-content">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+
+          <div class="absolute top-12 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none">
+            <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl">PROJECTS</h1>
+          </div>
+
+          <div class="min-h-screen flex items-center">
+            <div class="w-full">
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-28 xl:gap-32 items-start justify-items-center">
+
+                <div class="flex flex-col items-center text-center">
+                  <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">WEBSITES</h2>
+                  <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
+                    <img src="/img/projects-websites.jpg" alt="Websites" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="mt-7 flex flex-wrap gap-4 justify-center">
+                    <a href="https://www.rimet.pl" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RIMET</a>
+                    <a href="https://devblog.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DEVBLOG</a>
+                    <a href="https://kawa.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">KAWA</a>
+                  </div>
+                </div>
+
+                <div class="flex flex-col items-center text-center">
+                  <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GAMES</h2>
+                  <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
+                    <img src="/img/projects-games.jpg" alt="Games" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="mt-7 flex flex-wrap gap-4 justify-center">
+                    <a href="https://www.youtube.com/watch?v=DuAW_1QFnbo" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">YOUTUBE</a>
+                    <a href="https://drive.google.com/drive/folders/1xWNqW5yqlzvhufH6h-bHZpZ_axTTax0R?usp=sharing" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
+                  </div>
+                </div>
+
+                <div class="flex flex-col items-center text-center">
+                  <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GRAPHICS</h2>
+                  <div class="project-circle w-[21rem] h-[21rem] sm:w-[24rem] sm:h-[24rem] md:w-[26rem] md:h-[26rem] rounded-full overflow-hidden relative glitch-border transition-transform duration-300 hover:scale-[1.02]">
+                    <img src="/img/projects-graphics.jpg" alt="Graphics" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="mt-7 flex flex-wrap gap-4 justify-center">
+                    <a href="https://drive.google.com/drive/folders/1CuEgv54QpvC5KyKaGH0JsTDzRBmaeduf?usp=sharing" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute bottom-20 left-1/2 -translate-x-1/2">
+            <a href="#contact" class="w-32 py-3 inter-font rounded glitch-border-button contact-glow text-center text-black dark:text-cyan-300">↓ CONTACT</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (VIDEO: contact2k) -->
     <section id="contact" class="min-h-screen transition-colors relative overflow-hidden">
-      <div class="absolute top-32 left-1/2 -translate-x-1/2 w-full flex justify-center pointer-events-none">
-        <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl select-none">CONTACT</h1>
+      <div class="section-video-wrap" aria-hidden="true">
+        <video autoplay muted loop playsinline class="section-video">
+          <source src="/video/contact2k.mp4" type="video/mp4" />
+        </video>
+        <div class="section-overlay"></div>
       </div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
-        <div class="contact-stage mt-28 sm:mt-32 relative">
+      <div class="section-content">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-[-30px] w-full flex justify-center pointer-events-none">
+          <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl select-none">CONTACT</h1>
+        </div>
 
-          <svg class="contact-svg" viewBox="-200 0 1800 420" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
+          <div class="contact-stage mt-28 sm:mt-32 relative">
 
-              <linearGradient id="trailGradient" x1="-200" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0%"   stop-color="#22d3ee"/>
-                <stop offset="18%"  stop-color="#3b82f6"/>
-                <stop offset="36%"  stop-color="#a855f7"/>
-                <stop offset="54%"  stop-color="#ec4899"/>
-                <stop offset="72%"  stop-color="#f97316"/>
-                <stop offset="90%"  stop-color="#84cc16"/>
-                <stop offset="100%" stop-color="#22d3ee"/>
-              </linearGradient>
+            <svg class="contact-svg" viewBox="-200 0 1800 420" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
 
-              <path id="flightPath" d="M -200 260
-                C 150 60, 380 460, 620 220
-                S 980 40, 1200 260
-                S 1450 460, 1540 230" />
-            </defs>
+                <linearGradient id="trailGradient" x1="-200" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%"   stop-color="#22d3ee"/>
+                  <stop offset="18%"  stop-color="#3b82f6"/>
+                  <stop offset="36%"  stop-color="#a855f7"/>
+                  <stop offset="54%"  stop-color="#ec4899"/>
+                  <stop offset="72%"  stop-color="#f97316"/>
+                  <stop offset="90%"  stop-color="#84cc16"/>
+                  <stop offset="100%" stop-color="#22d3ee"/>
+                </linearGradient>
 
-            <!-- szary guide -->
-            <use href="#flightPath" class="path-guide"/>
+                <path id="flightPath" d="M -200 260
+                  C 150 60, 380 460, 620 220
+                  S 980 40, 1200 260
+                  S 1450 460, 1540 230" />
+              </defs>
 
-            <!-- KOLOROWANIE ścieżki -->
-            <use id="colorMain" href="#flightPath" class="path-color"/>
-            <use id="colorR" href="#flightPath" class="path-color-r" transform="translate(1 -1)"/>
-            <use id="colorG" href="#flightPath" class="path-color-g" transform="translate(-1 1)"/>
-            <use id="colorB" href="#flightPath" class="path-color-b" transform="translate(0 1)"/>
+              <use href="#flightPath" class="path-guide"/>
 
-            <!-- burst -->
-            <g id="burst" class="burst" transform="translate(1540 230)">
-              <circle class="burst-ring" r="6"></circle>
-              <circle class="burst-ring2" r="6"></circle>
-              <g class="burst-lines" filter="url(#neonGlow)">
-                <line x1="-18" y1="0" x2="-44" y2="0"></line>
-                <line x1="18" y1="0" x2="44" y2="0"></line>
-                <line x1="0" y1="-18" x2="0" y2="-44"></line>
-                <line x1="0" y1="18" x2="0" y2="44"></line>
-                <line x1="-13" y1="-13" x2="-32" y2="-32"></line>
-                <line x1="13" y1="13" x2="32" y2="32"></line>
-                <line x1="-13" y1="13" x2="-32" y2="32"></line>
-                <line x1="13" y1="-13" x2="32" y2="-32"></line>
-              </g>
-            </g>
+              <use id="colorMain" href="#flightPath" class="path-color"/>
+              <use id="colorR" href="#flightPath" class="path-color-r" transform="translate(1 -1)"/>
+              <use id="colorG" href="#flightPath" class="path-color-g" transform="translate(-1 1)"/>
+              <use id="colorB" href="#flightPath" class="path-color-b" transform="translate(0 1)"/>
 
-            <!-- PLANE -->
-            <g id="planeMotion" opacity="0">
-              <g id="planeWobble" transform="translate(-33,-33)">
-                <animateTransform
-                  attributeName="transform"
-                  type="rotate"
-                  additive="sum"
-                  dur="0.95s"
-                  repeatCount="indefinite"
-                  values="-6 33 33; 6 33 33; -6 33 33"
-                  begin="planeMotionAnim.begin+0.15s"
-                />
-                <svg x="0" y="0" width="66" height="66" viewBox="0 0 64 64">
-                  <path d="M4 30 L60 6 L40 58 L30 38 L4 30 Z" class="plane-fill"/>
-                  <path d="M4 30 L60 6 L30 38" class="plane-stroke"/>
-                  <path d="M30 38 L40 58" class="plane-stroke"/>
-                </svg>
+              <g id="burst" class="burst" transform="translate(1540 230)">
+                <circle class="burst-ring" r="6"></circle>
+                <circle class="burst-ring2" r="6"></circle>
+                <g class="burst-lines" filter="url(#neonGlow)">
+                  <line x1="-18" y1="0" x2="-44" y2="0"></line>
+                  <line x1="18" y1="0" x2="44" y2="0"></line>
+                  <line x1="0" y1="-18" x2="0" y2="-44"></line>
+                  <line x1="0" y1="18" x2="0" y2="44"></line>
+                  <line x1="-13" y1="-13" x2="-32" y2="-32"></line>
+                  <line x1="13" y1="13" x2="32" y2="32"></line>
+                  <line x1="-13" y1="13" x2="-32" y2="32"></line>
+                  <line x1="13" y1="-13" x2="32" y2="-32"></line>
+                </g>
               </g>
 
-              <animateMotion
-                id="planeMotionAnim"
-                dur="5.2s"
-                begin="indefinite"
-                fill="freeze"
-                rotate="auto"
-                calcMode="linear"
-                keyTimes="0;1"
-              >
-                <mpath href="#flightPath"></mpath>
-              </animateMotion>
-            </g>
-          </svg>
+              <g id="planeMotion" opacity="0">
+                <g id="planeWobble" transform="translate(-33,-33)">
+                  <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    additive="sum"
+                    dur="0.95s"
+                    repeatCount="indefinite"
+                    values="-6 33 33; 6 33 33; -6 33 33"
+                    begin="planeMotionAnim.begin+0.15s"
+                  />
+                  <svg x="0" y="0" width="66" height="66" viewBox="0 0 64 64">
+                    <path d="M4 30 L60 6 L40 58 L30 38 L4 30 Z" class="plane-fill"/>
+                    <path d="M4 30 L60 6 L30 38" class="plane-stroke"/>
+                    <path d="M30 38 L40 58" class="plane-stroke"/>
+                  </svg>
+                </g>
 
-          <!-- panel -->
-          <div id="contactPanel" class="contact-panel">
-            <div class="contact-panel-inner text-center">
-              <div class="text-white/70 inter-font contact-kicker mb-2">Let’s talk:</div>
-
-              <a
-                href="mailto:michal.pawlak.praca@gmail.com"
-                class="glitch-text text-lime-300 hover:text-lime-200 transition inter-font font-semibold text-lg sm:text-2xl md:text-3xl"
-              >
-                michal.pawlak.praca@gmail.com
-              </a>
-
-              <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="mailto:michal.pawlak.praca@gmail.com?subject=Wsp%C3%B3%C5%82praca%20-%20Zapytanie&body=Cze%C5%9B%C4%87%20Micha%C5%82,%0A%0AChc%C4%99%20pogada%C4%87%20o%20..."
-                  class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                <animateMotion
+                  id="planeMotionAnim"
+                  dur="5.2s"
+                  begin="indefinite"
+                  fill="freeze"
+                  rotate="auto"
+                  calcMode="linear"
+                  keyTimes="0;1"
                 >
-                  <span class="contact-btn-emoji">📧</span>MAIL
-                </a>
+                  <mpath href="#flightPath"></mpath>
+                </animateMotion>
+              </g>
+            </svg>
 
-                <a
-                  href="/files/michal-pawlak-resume.pdf"
-                  target="_blank"
-                  class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
-                >
-                  <span class="contact-btn-emoji">📝</span>CV
-                </a>
+            <div id="contactPanel" class="contact-panel">
+              <div class="contact-panel-inner text-center">
+                <div class="text-white/70 inter-font contact-kicker mb-2">Let’s talk:</div>
 
                 <a
-                  href="https://www.linkedin.com/in/michał-pawlak-480297264/"
-                  target="_blank"
-                  class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                  href="mailto:michal.pawlak.praca@gmail.com"
+                  class="glitch-text text-lime-300 hover:text-lime-200 transition inter-font font-semibold text-lg sm:text-2xl md:text-3xl"
                 >
-                  <span class="contact-btn-emoji">🔗</span>LINKEDIN
+                  michal.pawlak.praca@gmail.com
                 </a>
-              </div>
 
-              <div class="mt-7 text-white/60 inter-font contact-urgent">
-                Need a quick response? Add: <span class="text-white/90 font-semibold">[PILNE]</span>
+                <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="mailto:michal.pawlak.praca@gmail.com?subject=Wsp%C3%B3%C5%82praca%20-%20Zapytanie&body=Cze%C5%9B%C4%87%20Micha%C5%82,%0A%0AChc%C4%99%20pogada%C4%87%20o%20..."
+                    class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                  >
+                    <span class="contact-btn-emoji">📧</span>MAIL
+                  </a>
+
+                  <a
+                    href="/files/michal-pawlak-resume.pdf"
+                    target="_blank"
+                    class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                  >
+                    <span class="contact-btn-emoji">📝</span>CV
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/michał-pawlak-480297264/"
+                    target="_blank"
+                    class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                  >
+                    <span class="contact-btn-emoji">🔗</span>LINKEDIN
+                  </a>
+                </div>
+
+                <div class="mt-7 text-white/60 inter-font contact-urgent">
+                  Need a quick response? Add: <span class="text-white/90 font-semibold">[PILNE]</span>
+                </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
     </section>
@@ -646,14 +690,11 @@ import '../styles/global.css';
 
         if (!section || !stage || !flightPath || !planeAnim || !planeGroup) return;
 
-        // dur z CSS
         const dur = getComputedStyle(stage).getPropertyValue('--flight-dur').trim() || '5.2s';
         planeAnim.setAttribute('dur', dur);
 
-        // długość path
         const len = flightPath.getTotalLength();
 
-        // ustaw dash na warstwach
         colorLayers.forEach((el) => {
           if (!el) return;
           el.setAttribute('stroke-dasharray', String(len));
@@ -661,11 +702,9 @@ import '../styles/global.css';
           el.style.opacity = '0';
         });
 
-        // dodaj animacje SMIL do <use> (sync z begin samolotu)
         function ensureAnim(useEl, idBase, opacityTo) {
           if (!useEl) return;
 
-          // wyczyść stare (hot-reload)
           useEl.querySelectorAll('animate').forEach(a => a.remove());
 
           const a1 = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
@@ -714,10 +753,8 @@ import '../styles/global.css';
 
           planeGroup.setAttribute('opacity', '1');
 
-          // odpal samolot (odpali też animacje szlaczka)
           if (planeAnim.beginElement) planeAnim.beginElement();
 
-          // burst + panel near end
           setTimeout(() => stage.classList.add('is-burst'), ms);
           setTimeout(() => stage.classList.add('is-reveal'), ms + 120);
         };
