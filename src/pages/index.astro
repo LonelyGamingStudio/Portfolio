@@ -90,17 +90,28 @@ import '../styles/global.css';
         pointer-events: auto;
       }
 
-      /* ✅ Responsywne przyciski */
-      .btn-responsive{
-        width: clamp(6.3rem, 9.5vw, 8.4rem);
-        padding-top: clamp(0.52rem, 1.1vw, 0.72rem);
-        padding-bottom: clamp(0.52rem, 1.1vw, 0.72rem);
-        font-size: clamp(0.82rem, 1.25vw, 0.98rem);
-        line-height: 1.1;
-      }
-      .btn-wide{
-        width: clamp(8.0rem, 11.5vw, 10.2rem);
-      }
+/* ✅ Responsywne przyciski */
+.btn-responsive{
+  min-width: clamp(6.3rem, 9.5vw, 8.4rem);
+  padding-top: clamp(0.52rem, 1.1vw, 0.72rem);
+  padding-bottom: clamp(0.52rem, 1.1vw, 0.72rem);
+  font-size: clamp(0.82rem, 1.25vw, 0.98rem);
+  line-height: 1.1;
+
+  white-space: nowrap;        /* <-- nie łam tekstu */
+  display: inline-flex;       /* <-- emoji + tekst jako jedna linia */
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+}
+
+.btn-wide{
+  min-width: clamp(8.0rem, 11.5vw, 10.2rem);
+}
+
+/* usuń dodatkowe poszerzenie przez margin */
+.contact-btn-emoji{ margin-right: 0 !important; }
+
 
       /* ✅ Linki w 1 rzędzie w Projects */
       .projects-links-row{
