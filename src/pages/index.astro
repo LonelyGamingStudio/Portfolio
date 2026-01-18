@@ -107,6 +107,27 @@ import '../styles/global.css';
         pointer-events: auto;
       }
 
+      /* ✅ Responsywne przyciski (1 klasa dla całej strony) */
+      .btn-responsive{
+        width: clamp(6.5rem, 10vw, 8.6rem);
+        padding-top: clamp(0.55rem, 1.15vw, 0.75rem);
+        padding-bottom: clamp(0.55rem, 1.15vw, 0.75rem);
+        font-size: clamp(0.85rem, 1.35vw, 1rem);
+        line-height: 1.1;
+      }
+      .btn-wide{
+        width: clamp(8.2rem, 12vw, 10.5rem);
+      }
+
+      /* ✅ Linki w 1 rzędzie w Projects (bez zawijania) */
+      .projects-links-row{
+        display:flex;
+        flex-wrap:nowrap;
+        gap: 0.75rem;
+        justify-content:center;
+        max-width: 100%;
+      }
+
       /* ===== CONTACT: animacja lotu ===== */
       .contact-stage {
         height: 520px;
@@ -384,20 +405,19 @@ import '../styles/global.css';
         <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
 
           <div class="flex flex-col items-center md:items-start w-full md:w-1/3">
-            <!-- ✅ foto też może być clamp, żeby nie była betonem na małych viewportach -->
             <div class="glitch-border w-[clamp(16rem,32vw,20rem)] h-[clamp(16rem,32vw,20rem)] rounded-full overflow-hidden relative" data-aos="fade-right" data-aos-delay="100">
               <img src="/img/michal.jpeg" alt="Michał Pawlak" class="w-full h-full object-cover rounded-full" />
             </div>
 
             <div class="flex gap-4 ml-0 md:ml-6 mt-8 md:mt-10" data-aos="fade-up" data-aos-delay="100">
-              <a href="/files/michal-pawlak-resume.pdf" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RESUME</a>
-              <a href="https://www.linkedin.com/in/michał-pawlak-480297264/" target="_blank" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">LINKEDIN</a>
+              <a href="/files/michal-pawlak-resume.pdf" target="_blank" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-responsive">RESUME</a>
+              <a href="https://www.linkedin.com/in/michał-pawlak-480297264/" target="_blank" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-responsive">LINKEDIN</a>
             </div>
           </div>
 
           <div class="w-full md:w-2/3 text-left" data-aos="fade-left" data-aos-delay="100">
-            <h2 class="text-4xl sm:text-5xl font-bold mb-4 font-montserrat inter-font text-black-300 dark:text-cyan-300">Hi there!</h2>
-            <ul class="text-lg sm:text-xl leading-relaxed text-black dark:text-white inter-font list-inside space-y-3">
+            <h2 class="font-bold mb-4 font-montserrat inter-font text-black-300 dark:text-cyan-300 text-[clamp(2.1rem,4vw,3rem)]">Hi there!</h2>
+            <ul class="leading-relaxed text-black dark:text-white inter-font list-inside space-y-3 text-[clamp(1.0rem,1.55vw,1.25rem)]">
               <li>💻 Over 6 years creating games and apps for Android, iOS, and Windows (my true passion)</li>
               <li>🌐 4+ years IT experience, including modern website development</li>
               <li>⚡ 3 years as an electrician, plus 1 year independently designing and building EV charging stations</li>
@@ -409,7 +429,7 @@ import '../styles/global.css';
         </div>
 
         <div class="about-bottom-cta">
-          <a href="#projects" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">
+          <a href="#projects" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-responsive">
             ↓ PROJECTS
           </a>
         </div>
@@ -425,23 +445,22 @@ import '../styles/global.css';
         <div class="section-overlay"></div>
       </div>
 
-      <!-- ✅ normalny flow + padding-top pod menu -->
       <div class="section-content pt-24 sm:pt-28 lg:pt-32 pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
 
-          <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl text-center mb-10 sm:mb-12 pointer-events-none">
+          <h1 class="anton glitch-text text-white text-center mb-10 sm:mb-12 pointer-events-none text-[clamp(2.2rem,5vw,4.4rem)]">
             PROJECTS
           </h1>
 
-          <!-- ✅ jedna "wysokość sekcji", bez podwójnego min-h-screen -->
           <div class="flex items-center min-h-[calc(var(--vh)-14rem)]">
             <div class="w-full">
-              <!-- ✅ 2 kolumny na md (laptopy), 3 na lg -->
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-20 xl:gap-24 items-start justify-items-center">
 
                 <!-- WEBSITES -->
                 <div class="flex flex-col items-center text-center w-full">
-                  <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">WEBSITES</h2>
+                  <h2 class="anton glitch-text text-white mb-6 select-none pointer-events-none text-[clamp(1.8rem,3.2vw,3.2rem)]">
+                    WEBSITES
+                  </h2>
 
                   <div class="project-circle
                     w-[clamp(14rem,24vw,22rem)] h-[clamp(14rem,24vw,22rem)]
@@ -450,16 +469,18 @@ import '../styles/global.css';
                     <img src="/img/projects-websites.jpg" alt="Websites" class="w-full h-full object-cover" />
                   </div>
 
-                  <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                    <a href="https://www.rimet.pl" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">RIMET</a>
-                    <a href="https://devblog.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DEVBLOG</a>
-                    <a href="https://kawa.michalpawlak.works" target="_blank" rel="noopener" class="w-32 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">KAWA</a>
+                  <div class="mt-7 projects-links-row">
+                    <a href="https://www.rimet.pl" target="_blank" rel="noopener" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-responsive">RIMET</a>
+                    <a href="https://devblog.michalpawlak.works" target="_blank" rel="noopener" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-responsive">DEVBLOG</a>
+                    <a href="https://kawa.michalpawlak.works" target="_blank" rel="noopener" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-responsive">KAWA</a>
                   </div>
                 </div>
 
                 <!-- GAMES -->
                 <div class="flex flex-col items-center text-center w-full">
-                  <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GAMES</h2>
+                  <h2 class="anton glitch-text text-white mb-6 select-none pointer-events-none text-[clamp(1.8rem,3.2vw,3.2rem)]">
+                    GAMES
+                  </h2>
 
                   <div class="project-circle
                     w-[clamp(14rem,24vw,22rem)] h-[clamp(14rem,24vw,22rem)]
@@ -468,15 +489,17 @@ import '../styles/global.css';
                     <img src="/img/projects-games.jpg" alt="Games" class="w-full h-full object-cover" />
                   </div>
 
-                  <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                    <a href="https://www.youtube.com/watch?v=DuAW_1QFnbo" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">YOUTUBE</a>
-                    <a href="https://drive.google.com/drive/folders/1xWNqW5yqlzvhufH6h-bHZpZ_axTTax0R?usp=sharing" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
+                  <div class="mt-7 projects-links-row">
+                    <a href="https://www.youtube.com/watch?v=DuAW_1QFnbo" target="_blank" rel="noopener" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-wide btn-responsive">YOUTUBE</a>
+                    <a href="https://drive.google.com/drive/folders/1xWNqW5yqlzvhufH6h-bHZpZ_axTTax0R?usp=sharing" target="_blank" rel="noopener" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-wide btn-responsive">DRIVE</a>
                   </div>
                 </div>
 
                 <!-- GRAPHICS -->
                 <div class="flex flex-col items-center text-center w-full md:col-span-2 lg:col-span-1">
-                  <h2 class="anton glitch-text text-white text-3xl sm:text-4xl md:text-5xl mb-6 select-none pointer-events-none">GRAPHICS</h2>
+                  <h2 class="anton glitch-text text-white mb-6 select-none pointer-events-none text-[clamp(1.8rem,3.2vw,3.2rem)]">
+                    GRAPHICS
+                  </h2>
 
                   <div class="project-circle
                     w-[clamp(14rem,24vw,22rem)] h-[clamp(14rem,24vw,22rem)]
@@ -485,16 +508,15 @@ import '../styles/global.css';
                     <img src="/img/projects-graphics.jpg" alt="Graphics" class="w-full h-full object-cover" />
                   </div>
 
-                  <div class="mt-7 flex flex-wrap gap-4 justify-center">
-                    <a href="https://drive.google.com/drive/folders/1CuEgv54QpvC5KyKaGH0JsTDzRBmaeduf?usp=sharing" target="_blank" rel="noopener" class="w-40 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300">DRIVE</a>
+                  <div class="mt-7 projects-links-row">
+                    <a href="https://drive.google.com/drive/folders/1CuEgv54QpvC5KyKaGH0JsTDzRBmaeduf?usp=sharing" target="_blank" rel="noopener" class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-wide btn-responsive">DRIVE</a>
                   </div>
                 </div>
 
               </div>
 
-              <!-- ✅ Contact button w normalnym flow -->
               <div class="mt-12 sm:mt-16 flex justify-center">
-                <a href="#contact" class="w-40 py-3 inter-font rounded glitch-border-button contact-glow text-center text-black dark:text-cyan-300">
+                <a href="#contact" class="inter-font rounded glitch-border-button contact-glow text-center text-black dark:text-cyan-300 btn-wide btn-responsive">
                   ↓ CONTACT
                 </a>
               </div>
@@ -516,7 +538,7 @@ import '../styles/global.css';
       </div>
 
       <div class="section-content pt-24 sm:pt-28 lg:pt-32">
-        <h1 class="anton glitch-text text-white text-4xl sm:text-5xl md:text-7xl select-none text-center mb-8 sm:mb-10 pointer-events-none">
+        <h1 class="anton glitch-text text-white select-none text-center mb-8 sm:mb-10 pointer-events-none text-[clamp(2.2rem,5vw,4.4rem)]">
           CONTACT
         </h1>
 
@@ -609,7 +631,7 @@ import '../styles/global.css';
 
                 <a
                   href="mailto:michal.pawlak.praca@gmail.com"
-                  class="glitch-text text-lime-300 hover:text-lime-200 transition inter-font font-semibold text-lg sm:text-2xl md:text-3xl"
+                  class="glitch-text text-lime-300 hover:text-lime-200 transition inter-font font-semibold text-[clamp(1.1rem,2.2vw,2rem)]"
                 >
                   michal.pawlak.praca@gmail.com
                 </a>
@@ -617,7 +639,7 @@ import '../styles/global.css';
                 <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                   <a
                     href="mailto:michal.pawlak.praca@gmail.com?subject=Wsp%C3%B3%C5%82praca%20-%20Zapytanie&body=Cze%C5%9B%C4%87%20Micha%C5%82,%0A%0AChc%C4%99%20pogada%C4%87%20o%20..."
-                    class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                    class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-wide btn-responsive"
                   >
                     <span class="contact-btn-emoji">📧</span>MAIL
                   </a>
@@ -625,7 +647,7 @@ import '../styles/global.css';
                   <a
                     href="/files/michal-pawlak-resume.pdf"
                     target="_blank"
-                    class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                    class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-wide btn-responsive"
                   >
                     <span class="contact-btn-emoji">📝</span>CV
                   </a>
@@ -633,7 +655,7 @@ import '../styles/global.css';
                   <a
                     href="https://www.linkedin.com/in/michał-pawlak-480297264/"
                     target="_blank"
-                    class="w-44 py-3 inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300"
+                    class="inter-font rounded glitch-border-button text-center text-black dark:text-cyan-300 btn-wide btn-responsive"
                   >
                     <span class="contact-btn-emoji">🔗</span>LINKEDIN
                   </a>
