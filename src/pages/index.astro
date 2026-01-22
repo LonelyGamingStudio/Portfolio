@@ -77,7 +77,72 @@ import '../styles/global.css';
         width: 100%;
       }
 
+      /* Dark-mode ABOUT overlay (zostaje jak miałeś) */
       #about .section-overlay { background: rgba(0,0,0,.30); }
+
+      /* ✅ DAY MODE: nie chowaj całego wrapa (bo znika overlay),
+         tylko ukryj samo video */
+      html:not(.dark) #about .section-video-wrap video,
+      html:not(.dark) #projects .section-video-wrap video,
+      html:not(.dark) #contact .section-video-wrap video{
+        display: none !important;
+      }
+
+/* ===== DAY MODE ===== */
+
+/* TYLKO PROJECTS ma szary overlay w DAY */
+html:not(.dark) #projects .section-overlay{
+  background: rgba(0,0,0,.08) !important;
+}
+
+/* ===== DAY MODE: jasnoszare sekcje ===== */
+html:not(.dark) #about,
+html:not(.dark) #projects,
+html:not(.dark) #contact{
+  background-color: #f2f2f2; /* możesz zmienić np. #ededed / #f5f5f5 */
+}
+
+/* ===== DAY MODE: glitch text na czarno ===== */
+html:not(.dark) .glitch-text{
+  color: #111 !important;
+}
+
+/* ===== DAY MODE: menu text na czarno ===== */
+html:not(.dark) .fixed a{
+  color: #111 !important;
+}
+
+/* ===== DAY MODE: białe tło menu (PRECYZYJNIE) ===== */
+html:not(.dark) .fixed.top-0.right-0{
+  background-color: #ffffff !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+
+/* ===== DAY MODE: stopka w kolorze sekcji ===== */
+html:not(.dark) footer{
+  background-color: #f2f2f2; /* ten sam co sekcje */
+}
+
+
+/* jeśli glitch używa pseudo-elementów */
+html:not(.dark) .glitch-text::before,
+html:not(.dark) .glitch-text::after{
+  color: #111 !important;
+}
+
+
+/* ABOUT i CONTACT w DAY bez szarości */
+html:not(.dark) #about .section-overlay,
+html:not(.dark) #contact .section-overlay{
+  background: transparent !important;
+}
+
+/* CONTACT – czarne teksty w DAY */
+html:not(.dark) #contact .day-text{
+  color: #000 !important;
+}
+
 
       /* ===== ABOUT: CTA na dole ===== */
       #about { --about-cta-y: -44px; }
@@ -90,28 +155,27 @@ import '../styles/global.css';
         pointer-events: auto;
       }
 
-/* ✅ Responsywne przyciski */
-.btn-responsive{
-  min-width: clamp(6.3rem, 9.5vw, 8.4rem);
-  padding-top: clamp(0.52rem, 1.1vw, 0.72rem);
-  padding-bottom: clamp(0.52rem, 1.1vw, 0.72rem);
-  font-size: clamp(0.82rem, 1.25vw, 0.98rem);
-  line-height: 1.1;
+      /* ✅ Responsywne przyciski */
+      .btn-responsive{
+        min-width: clamp(6.3rem, 9.5vw, 8.4rem);
+        padding-top: clamp(0.52rem, 1.1vw, 0.72rem);
+        padding-bottom: clamp(0.52rem, 1.1vw, 0.72rem);
+        font-size: clamp(0.82rem, 1.25vw, 0.98rem);
+        line-height: 1.1;
 
-  white-space: nowrap;        /* <-- nie łam tekstu */
-  display: inline-flex;       /* <-- emoji + tekst jako jedna linia */
-  align-items: center;
-  justify-content: center;
-  gap: .45rem;
-}
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .45rem;
+      }
 
-.btn-wide{
-  min-width: clamp(8.0rem, 11.5vw, 10.2rem);
-}
+      .btn-wide{
+        min-width: clamp(8.0rem, 11.5vw, 10.2rem);
+      }
 
-/* usuń dodatkowe poszerzenie przez margin */
-.contact-btn-emoji{ margin-right: 0 !important; }
-
+      /* usuń dodatkowe poszerzenie przez margin */
+      .contact-btn-emoji{ margin-right: 0 !important; }
 
       /* ✅ Linki w 1 rzędzie w Projects */
       .projects-links-row{
@@ -404,11 +468,9 @@ import '../styles/global.css';
             </div>
 
             <div class="w-full md:w-2/3 text-left" data-aos="fade-left" data-aos-delay="100">
-              <!-- ✅ mniejszy tytuł -->
               <h2 class="font-bold mb-3 font-montserrat inter-font text-black-300 dark:text-cyan-300 text-[clamp(1.8rem,3.2vw,2.5rem)]">
                 Hi there!
               </h2>
-              <!-- ✅ mniejszy tekst -->
               <ul class="leading-relaxed text-black dark:text-white inter-font list-inside space-y-2 text-[clamp(0.95rem,1.15vw,1.1rem)]">
                 <li>💻 Over 6 years creating games and apps for Android, iOS, and Windows (my true passion)</li>
                 <li>🌐 4+ years IT experience, including modern website development</li>
@@ -432,27 +494,16 @@ import '../styles/global.css';
 
     <!-- PROJECTS -->
     <section id="projects" data-aos="fade-left" class="relative overflow-hidden h-[var(--vh)] transition-colors">
-      <div class="section-video-wrap" aria-hidden="true">
-        <video autoplay muted loop playsinline class="section-video">
-          <source src="/video/projects2k.mp4" type="video/mp4" />
-        </video>
-        <div class="section-overlay"></div>
-      </div>
-
-      <!-- ✅ full-screen layout bez „nadmiarowego scrolla” -->
       <div class="section-content">
         <div class="h-full w-full pt-[var(--top-pad)] pb-8 translate-y-[-6vh] sm:translate-y-[-8vh]">
-
           <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full h-full flex flex-col">
 
             <h1 class="anton glitch-text text-white text-center mb-6 pointer-events-none text-[clamp(2.0rem,4.6vw,3.8rem)]">
               PROJECTS
             </h1>
 
-            <!-- ✅ reszta wysokości ekranu -->
             <div class="flex-1 flex items-center">
               <div class="w-full">
-                <!-- ✅ mniejsze gapy żeby się zawsze zmieściło -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-14 xl:gap-16 items-start justify-items-center">
 
                   <div class="flex flex-col items-center text-center w-full">
@@ -534,7 +585,6 @@ import '../styles/global.css';
         <div class="section-overlay"></div>
       </div>
 
-      <!-- ✅ full-screen layout bez „nadmiarowego scrolla” -->
       <div class="section-content">
         <div class="h-full w-full pt-[var(--top-pad)] pb-8">
           <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full h-full flex flex-col">
@@ -629,7 +679,8 @@ import '../styles/global.css';
 
                   <div id="contactPanel" class="contact-panel">
                     <div class="contact-panel-inner text-center">
-                      <div class="text-white/70 inter-font mb-2">Let’s talk:</div>
+                      <div class="text-white/70 inter-font mb-2 day-text">Let’s talk:</div>
+
 
                       <a
                         href="mailto:michal.pawlak.praca@gmail.com"
@@ -663,9 +714,10 @@ import '../styles/global.css';
                         </a>
                       </div>
 
-                      <div class="mt-6 text-white/60 inter-font">
-                        Need a quick response? Add: <span class="text-white/90 font-semibold">[PILNE]</span>
-                      </div>
+<div class="mt-6 text-white/60 inter-font day-text">
+  Need a quick response? Add: <span class="font-semibold">[PILNE]</span>
+</div>
+
                     </div>
                   </div>
 
@@ -678,7 +730,8 @@ import '../styles/global.css';
       </div>
     </section>
 
-    <footer class="text-center mt-10 py-6 px-4 text-sm text-white dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
+    <!-- ✅ Footer: w DAY czarny -->
+    <footer class="text-center pt-10 py-6 px-4 text-sm text-black dark:text-gray-400 transition-colors font-[Montserrat] uppercase tracking-wide">
       MICHAŁ PAWLAK 2026 | ALL RIGHTS RESERVED ©
     </footer>
 
@@ -833,6 +886,66 @@ import '../styles/global.css';
 
         io.observe(section);
       });
+    </script>
+
+    <!-- ✅ DAY/NIGHT: hard-stop video w ABOUT / CONTACT / PROJECTS -->
+    <script>
+      (function () {
+        function isDarkNow() {
+          return document.documentElement.classList.contains('dark');
+        }
+
+        function hardDisableVideo(video) {
+          if (!video) return;
+          try { video.pause(); } catch (e) {}
+          try { video.currentTime = 0; } catch (e) {}
+
+          const sources = video.querySelectorAll('source');
+          sources.forEach(s => s.setAttribute('data-old-src', s.getAttribute('src') || ''));
+          sources.forEach(s => s.setAttribute('src', ''));
+          try { video.load(); } catch (e) {}
+
+          video.style.display = 'none';
+        }
+
+        function hardEnableVideo(video) {
+          if (!video) return;
+
+          const sources = video.querySelectorAll('source');
+          sources.forEach(s => {
+            const old = s.getAttribute('data-old-src');
+            if (old && !s.getAttribute('src')) s.setAttribute('src', old);
+          });
+
+          video.style.display = '';
+          try { video.load(); } catch (e) {}
+          try { video.play(); } catch (e) {}
+        }
+
+        function syncVideos() {
+          const dark = isDarkNow();
+
+          const aboutVideo = document.querySelector('#about .section-video-wrap video');
+          const contactVideo = document.querySelector('#contact .section-video-wrap video');
+          const projectsVideo = document.querySelector('#projects .section-video-wrap video');
+
+          if (!dark) {
+            hardDisableVideo(aboutVideo);
+            hardDisableVideo(contactVideo);
+            hardDisableVideo(projectsVideo);
+          } else {
+            hardEnableVideo(aboutVideo);
+            hardEnableVideo(contactVideo);
+            hardEnableVideo(projectsVideo);
+          }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          syncVideos();
+          const obs = new MutationObserver(syncVideos);
+          obs.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        });
+      })();
     </script>
   </body>
 </html>
